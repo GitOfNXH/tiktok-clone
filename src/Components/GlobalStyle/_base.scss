@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Base
+:root {
+    --primary: #ff3b5c;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Roboto', serif;
+    font-optical-sizing: auto;
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+
+input,
+select,
+textarea,
+button {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+a {
+    text-decoration: none;
+}
