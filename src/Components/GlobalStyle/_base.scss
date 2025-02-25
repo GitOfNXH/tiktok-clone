@@ -3,10 +3,17 @@
 // Base
 :root {
     --primary: #ff3b5c;
+    --black: #000;
+    --text-color: #333;
+
+    --default-layout-header-hight: 60px;
+    --default-layout-header-width: 1150px;
 }
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -28,6 +35,14 @@ button {
     font-size: inherit;
 }
 
+input,
+button,
+[tabIndex] {
+    border: none;
+    outline: none;
+}
+
 a {
+    color: var(--text-color);
     text-decoration: none;
 }
