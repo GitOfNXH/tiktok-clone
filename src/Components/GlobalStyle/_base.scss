@@ -5,6 +5,7 @@
     --primary: #ff3b5c;
     --black: #000;
     --text-color: #333;
+    --white-color: #fff;
 
     --default-layout-header-hight: 60px;
     --default-layout-header-width: 1150px;
@@ -33,6 +34,7 @@ textarea,
 button {
     font-family: inherit;
     font-size: inherit;
+    background-color: transparent;
 }
 
 input,
