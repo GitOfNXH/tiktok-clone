@@ -1,4 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+    font-family: 'TikTokFont';
+    src: url(/assets/fonts/TikTokFont-Regular.woff2);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'TikTokFont';
+    src: url(/assets/fonts/TikTokFont-Semibold.woff2);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'TikTokFont';
+    src: url(/assets/fonts/TikTokFont-Bold.woff2);
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'TikTokDisplayFont';
+    src: url(/assets/fonts/TikTokDisplayFont-Bold.woff2);
+    font-weight: 700;
+}
 
 // Base
 :root {
@@ -23,7 +45,7 @@ html {
 }
 
 body {
-    font-family: 'Roboto', serif;
+    font-family: 'TikTokFont', serif;
     font-optical-sizing: auto;
     font-size: 1.6rem;
     line-height: 1.5;

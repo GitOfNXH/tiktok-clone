@@ -37,7 +37,7 @@ function Menu({ children, items = [], onchange = defaultFn }) {
     return (
         <Tippy
             interactive
-            offset={[12, 9]}
+            offset={[12, 15]}
             onHide={() => setHistory(prev => prev.slice(0, 1))}
             delay={[0, 700]}
             placement='bottom-end'
