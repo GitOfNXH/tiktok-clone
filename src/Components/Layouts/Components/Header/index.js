@@ -8,8 +8,15 @@ import {
     faGlobe,
     faCircleQuestion,
     faKeyboard,
+    faCloudUpload,
+    faUser,
+    faCoins,
+    faGear,
+    faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
 import { useEffect, useState } from 'react';
 
 import style from './Header.module.scss';
@@ -25,6 +32,21 @@ const menuItems = [
     {
         icon: <FontAwesomeIcon icon={faGlobe} />,
         title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    type: 'Language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'Language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -37,8 +59,35 @@ const menuItems = [
     },
 ];
 
+const menuUser = [
+    {
+        icon: <FontAwesomeIcon icon={faUser} />,
+        title: 'View profile',
+        to: '/@hoaa',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCoins} />,
+        title: 'Get coins',
+        to: '/coin',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: 'Setting',
+        to: '/setting',
+    },
+    ...menuItems,
+    {
+        icon: <FontAwesomeIcon icon={faSignOut} />,
+        title: 'Log out',
+        to: '/logout',
+        separate: true,
+    },
+];
+
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
+
+    const currentUser = true;
 
     useEffect(() => {
         setTimeout(() => {
@@ -70,14 +119,24 @@ function Header() {
             //     },
             // ]);
         }, 0);
-    });
+    }, []);
+
+    const handleChangeItem = item => {
+        switch (item.type) {
+            case 'Language':
+                console.log('Xu ly thay doi ngon ngu');
+                break;
+            default:
+                throw new Error('Invalid type');
+        }
+    };
 
     return (
         <header className={cx('wrapper')}>
             <div className={cx('container')}>
                 <img src={images.logo} alt='Tiktok' />
 
-                <Tippy
+                <HeadlessTippy
                     interactive
                     visible={searchResult.length > 0}
                     render={attrs => (
@@ -118,19 +177,46 @@ function Header() {
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
-                </Tippy>
+                </HeadlessTippy>
 
                 <div className={cx('actions')}>
-                    <Button text>Upload</Button>
-                    <Button primary>Log in</Button>
+                    {currentUser ? (
+                        <>
+                            <Tippy
+                                delay={[0, 200]}
+                                content='Upload video'
+                                placement='bottom'
+                            >
+                                <button className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                </button>
+                            </Tippy>
+                        </>
+                    ) : (
+                        <>
+                            <Button text>Upload</Button>
+                            <Button primary>Log in</Button>
+                        </>
+                    )}
 
-                    <Menu items={menuItems}>
-                        <button>
-                            <FontAwesomeIcon
-                                className={cx('menu')}
-                                icon={faEllipsisVertical}
+                    <Menu
+                        items={currentUser ? menuUser : menuItems}
+                        onchange={handleChangeItem}
+                    >
+                        {currentUser ? (
+                            <img
+                                className={cx('user-avatar')}
+                                src='https://showbizvietnam.vn/wp-content/uploads/2024/01/Dao_Le_Phuong_Hoa_4.jpg'
+                                alt='Đào Lê Phương Hoa'
                             />
-                        </button>
+                        ) : (
+                            <button>
+                                <FontAwesomeIcon
+                                    className={cx('menu')}
+                                    icon={faEllipsisVertical}
+                                />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>

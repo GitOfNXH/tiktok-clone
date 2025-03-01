@@ -1,3 +1,23 @@
+// Header
+.header {
+    position: relative;
+    height: 50px;
+    margin-top: -8px;
+}
+
+.back-btn {
+    width: 50px;
+    height: 100%;
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+// Menu item
 .menu-items {
     width: 224px;
 
@@ -12,6 +32,10 @@
         height: 42px;
         font-weight: 600;
         border-radius: 0;
+
+        &.separate {
+            border-top: 1px solid rgb(22, 24, 35, 0.12);
+        }
     }
 }
 
