@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-import * as apiService from '~/apiServices/searchService';
+import * as services from '~/services/searchService';
 import style from './Search.module.scss';
 import { PopperWrapper } from '~/Components/Popper';
 import AccountItem from '~/Components/AccountItem';
@@ -30,7 +30,7 @@ function Search() {
 
         const fetchApi = async () => {
             setShowLoading(true);
-            const searchData = await apiService.search(debounce);
+            const searchData = await services.search(debounce);
             setSearchResult(searchData);
             setShowLoading(false);
         };
@@ -48,7 +48,13 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleChange = e => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) setSearchValue(searchValue);
+    };
     return (
+        // Using a wrapper <div> tag around the reference element
+        // solves this by creating a new parentNode context.
         <div>
             <HeadlessTippy
                 interactive
@@ -82,7 +88,7 @@ function Search() {
                         onFocus={() => setShowResult(true)}
                         placeholder='Search accounts and video'
                         spellCheck={false}
-                        onChange={e => setSearchValue(e.target.value)}
+                        onChange={handleChange}
                     />
 
                     {showLoading && (
@@ -95,7 +101,10 @@ function Search() {
                             <CloseIcon />
                         </button>
                     )}
-                    <button className={cx('search-btn')}>
+                    <button
+                        className={cx('search-btn')}
+                        onMouseDown={e => e.preventDefault()}
+                    >
                         <SearchIcon />
                     </button>
                 </div>

@@ -12,7 +12,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import { Link } from 'react-router-dom';
 
+import config from '~/configs';
 import style from './Header.module.scss';
 import images from '~/assets/images';
 import Button from '~/Components/Button';
@@ -95,7 +97,9 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('container')}>
-                <img src={images.logo} alt='Tiktok' />
+                <Link className={cx('logo-link')} to={config.routes.home}>
+                    <img src={images.logo} alt='Tiktok' />
+                </Link>
 
                 <Search />
 
@@ -112,13 +116,27 @@ function Header() {
                                 </button>
                             </Tippy>
 
-                            <button className={cx('action-btn')}>
-                                <MessagesIcon />
-                            </button>
+                            <Tippy
+                                delay={[0, 200]}
+                                content='Message'
+                                placement='bottom'
+                            >
+                                <button className={cx('action-btn')}>
+                                    <MessagesIcon />
+                                </button>
+                            </Tippy>
 
-                            <button className={cx('action-btn', 'activity')}>
-                                <ActivityIcon />
-                            </button>
+                            <Tippy
+                                delay={[0, 200]}
+                                content='Activity'
+                                placement='bottom'
+                            >
+                                <button
+                                    className={cx('action-btn', 'activity')}
+                                >
+                                    <ActivityIcon />
+                                </button>
+                            </Tippy>
                         </>
                     ) : (
                         <>
