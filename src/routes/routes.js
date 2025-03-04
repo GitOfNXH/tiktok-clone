@@ -10,6 +10,7 @@ import {
     Upload,
     Profile,
     DetailSearch,
+    LivePage,
 } from '~/pages';
 
 const publicRoutes = [
@@ -18,6 +19,7 @@ const publicRoutes = [
     { path: config.routes.profile, component: Profile },
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.search, component: DetailSearch, layout: null },
+    { path: config.routes.live, component: LivePage },
 ];
 
 const privateRoutes = [];
