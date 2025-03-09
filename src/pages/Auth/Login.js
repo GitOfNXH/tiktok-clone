@@ -1,0 +1,96 @@
+import classNames from 'classnames/bind';
+import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { postLogin } from '~/services/authService';
+import style from './Auth.module.scss';
+import { LockIcon, UserIcon } from '~/Components/Icons';
+import Button from '~/Components/Button';
+import { getCurrentUser } from '~/features/currentUser/currentUserSlice';
+
+const cx = classNames.bind(style);
+
+function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const homePageRef = useRef();
+    const dispatch = useDispatch();
+
+    const handleLogin = e => {
+        e.preventDefault();
+        const fetchApi = async () => {
+            try {
+                const response = await postLogin({ email, password });
+                dispatch(getCurrentUser(response));
+                alert('Đăng nhập thành công!');
+                homePageRef.current.click();
+            } catch (error) {
+                throw new Error(error);
+            }
+        };
+        fetchApi();
+    };
+
+    return (
+        <div className={cx('wrapper')}>
+            <div className={cx('container')}>
+                <form className={cx('form')}>
+                    <h2 className={cx('title')}>Login</h2>
+
+                    <label className={cx('label')} htmlFor='email'>
+                        Email
+                    </label>
+                    <div className={cx('form-input')}>
+                        <label htmlFor='email' className={cx('input-icon')}>
+                            <UserIcon />
+                        </label>
+                        <input
+                            onChange={e => setEmail(e.target.value)}
+                            value={email}
+                            className={cx('input')}
+                            id='email'
+                            name='email'
+                            type='email'
+                            placeholder='Type your email'
+                        ></input>
+                    </div>
+
+                    <label className={cx('label')} htmlFor='password'>
+                        Password
+                    </label>
+                    <div className={cx('form-input')}>
+                        <label htmlFor='password' className={cx('input-icon')}>
+                            <LockIcon />
+                        </label>
+                        <input
+                            onChange={e => setPassword(e.target.value)}
+                            value={password}
+                            className={cx('input')}
+                            id='password'
+                            name='password'
+                            type='password'
+                            placeholder='Type your password'
+                        ></input>
+                    </div>
+
+                    <div className={cx('navigation')}>
+                        <Link className={cx('link')} to='/register'>
+                            Don't have an account? Sign up
+                        </Link>
+                        <Link ref={homePageRef} className={cx('link')} to='/'>
+                            Back to Home page
+                        </Link>
+                    </div>
+
+                    <Button className={cx('submit-btn')} onClick={handleLogin}>
+                        LOGIN
+                    </Button>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+export default Login;

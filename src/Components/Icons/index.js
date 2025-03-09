@@ -1,1 +1,15 @@
-export * from './Icons';
+export {
+    UploadIcon,
+    ActivityIcon,
+    MessagesIcon,
+    CloseIcon,
+    SearchIcon,
+    HomeIcon,
+    HomeActiveIcon,
+    FollowingIcon,
+    FollowingActiveIcon,
+    LiveIcon,
+    LiveActiveIcon,
+    UserIcon,
+    LockIcon,
+} from './Icons';

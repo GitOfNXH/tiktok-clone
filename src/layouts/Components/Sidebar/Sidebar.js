@@ -1,4 +1,6 @@
 import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
+import { getSuggested } from '~/services/userService';
 
 import config from '~/configs';
 import { MenuItem } from './Menu';
@@ -37,6 +39,28 @@ const menuItems = [
 ];
 
 function Sidebar() {
+    const [suggested, setSuggested] = useState([]);
+    const [isSeeAll, setIsSeeAll] = useState(false);
+
+    useEffect(() => {
+        try {
+            const fetchApi = async () => {
+                let data = [];
+                data = isSeeAll
+                    ? await getSuggested(1, 20)
+                    : await getSuggested(1, 5);
+                setSuggested(data);
+            };
+            fetchApi();
+        } catch (error) {
+            throw new Error(error);
+        }
+    }, [isSeeAll]);
+
+    const handleViewChange = () => {
+        setIsSeeAll(prevState => !prevState);
+    };
+
     return (
         <aside className={cx('wrapper')}>
             <Menu>
@@ -51,11 +75,11 @@ function Sidebar() {
                 ))}
             </Menu>
 
-            <SuggestedAccounts label='Suggest accounts' expandable='see all' />
-
             <SuggestedAccounts
-                label='Following accounts'
-                expandable='see all'
+                label='Suggest accounts'
+                expandable={isSeeAll}
+                onViewChange={handleViewChange}
+                data={suggested}
             />
         </aside>
     );

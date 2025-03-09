@@ -11,6 +11,8 @@ import {
     Profile,
     DetailSearch,
     LivePage,
+    LoginPage,
+    RegisterPage,
 } from '~/pages';
 
 const publicRoutes = [
@@ -20,6 +22,8 @@ const publicRoutes = [
     { path: config.routes.upload, component: Upload, layout: HeaderOnly },
     { path: config.routes.search, component: DetailSearch, layout: null },
     { path: config.routes.live, component: LivePage },
+    { path: config.routes.login, component: LoginPage, layout: null },
+    { path: config.routes.register, component: RegisterPage, layout: null },
 ];
 
 const privateRoutes = [];
