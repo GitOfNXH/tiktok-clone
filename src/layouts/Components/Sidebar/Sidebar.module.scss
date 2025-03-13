@@ -1,4 +1,11 @@
 .wrapper {
-    width: 356px;
+    width: var(--default-layout-sidebar-width);
+    height: calc(100vh - var(--default-layout-header-hight));
     padding: 20px 0 26px 8px;
+    position: fixed;
+    top: var(--default-layout-header-hight);
+    left: 0;
+    overflow-y: auto;
+    z-index: 10;
+    scrollbar-width: none;
 }

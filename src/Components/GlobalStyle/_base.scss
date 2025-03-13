@@ -25,13 +25,15 @@
 // Base
 :root {
     --primary: #ff3b5c;
+    --secondary: #f3f2f1;
     --black: #000;
     --text-color: #161823;
     --white-color: #fff;
 
     --default-layout-header-hight: 60px;
-    --default-layout-header-width: 1150px;
+    --default-layout-header-width: 100%;
     --default-layout-horizontal-spacer: 24px;
+    --default-layout-sidebar-width: 340px;
 }
 
 * {
@@ -49,6 +51,7 @@ body {
     font-optical-sizing: auto;
     font-size: 1.6rem;
     line-height: 1.5;
+    color: var(--text-color);
     overflow-y: overlay;
 }
 

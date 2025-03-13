@@ -1,13 +1,11 @@
 import classNames from 'classnames/bind';
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { postLogin } from '~/services/authService';
+import * as httpRequest from '~/services/authService';
 import style from './Auth.module.scss';
 import { LockIcon, UserIcon } from '~/Components/Icons';
 import Button from '~/Components/Button';
-import { getCurrentUser } from '~/features/currentUser/currentUserSlice';
 
 const cx = classNames.bind(style);
 
@@ -15,17 +13,19 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const homePageRef = useRef();
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogin = e => {
         e.preventDefault();
         const fetchApi = async () => {
             try {
-                const response = await postLogin({ email, password });
-                dispatch(getCurrentUser(response));
-                alert('Đăng nhập thành công!');
-                homePageRef.current.click();
+                const response = await httpRequest.postLogin({
+                    email,
+                    password,
+                });
+                localStorage.setItem('token', response.meta.token);
+                localStorage.setItem('userData', JSON.stringify(response.data));
+                navigate('/');
             } catch (error) {
                 throw new Error(error);
             }
@@ -79,7 +79,7 @@ function Login() {
                         <Link className={cx('link')} to='/register'>
                             Don't have an account? Sign up
                         </Link>
-                        <Link ref={homePageRef} className={cx('link')} to='/'>
+                        <Link className={cx('link')} to='/'>
                             Back to Home page
                         </Link>
                     </div>

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +11,7 @@ import PreviewAccount from './PreviewAccount/PreviewAccount';
 
 const cx = classNames.bind(style);
 
-function AccountItem({ data }) {
+function AccountItem({ data, following }) {
     return (
         // Using a wrapper <div> tag around the reference element solves
         // this by creating a new parentNode context.
@@ -25,20 +24,22 @@ function AccountItem({ data }) {
                 render={attrs => (
                     <div className={cx('preview')} tabIndex='-1' {...attrs}>
                         <PopperWrapper className={cx('menu-popper')}>
-                            <PreviewAccount data={data} />
+                            <PreviewAccount following={following} data={data} />
                         </PopperWrapper>
                     </div>
                 )}
             >
-                <Link to={`/@${data.nickname}`} className={cx('account-item')}>
+                <a href={`/@${data.nickname}`} className={cx('account-item')}>
                     <Image
-                        className={cx('avatar')}
+                        width='32px'
+                        height='32px'
+                        rounded
                         alt={data.nickname}
                         src={data.avatar}
                     />
                     <div className={cx('info')}>
                         <h4 className={cx('username')}>
-                            <span>{data.nickname}</span>
+                            <span>{data.nickname ?? ''}</span>
                             {data.tick && (
                                 <FontAwesomeIcon
                                     className={cx('check')}
@@ -46,11 +47,12 @@ function AccountItem({ data }) {
                                 />
                             )}
                         </h4>
-                        <p
-                            className={cx('name')}
-                        >{`${data.last_name} ${data.first_name}`}</p>
+                        <p className={cx('name')}>
+                            {`${data.first_name} ${data.last_name}`.trim() ||
+                                'no fullname'}
+                        </p>
                     </div>
-                </Link>
+                </a>
             </Tippy>
         </div>
     );
@@ -58,6 +60,7 @@ function AccountItem({ data }) {
 
 AccountItem.propTypes = {
     data: PropTypes.object.isRequired,
+    following: PropTypes.bool,
 };
 
 export default AccountItem;

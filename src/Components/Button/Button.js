@@ -11,6 +11,7 @@ function Button({
     href,
     children,
     primary,
+    secondary,
     outline,
     text,
     rounded,
@@ -39,16 +40,19 @@ function Button({
     }
 
     if (to) {
-        props.to = to;
         Comp = Link;
+        props.to = to;
     } else if (href) {
         props.href = href;
+        console.log(Comp);
+
         Comp = 'a';
     }
 
     const classes = cx('wrapper', {
         [className]: className,
         primary,
+        secondary,
         outline,
         text,
         rounded,

@@ -6,16 +6,28 @@ import AccountItem from './AccountItem';
 
 const cx = classNames.bind(style);
 
-function SuggestedAccounts({ label, expandable, onViewChange, data = [] }) {
+function SuggestedAccounts({
+    label,
+    following,
+    expandable,
+    onViewChange,
+    data = [],
+}) {
     return (
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>
-            {data.map(account => (
-                <AccountItem key={account.id} data={account} />
+            {data.map((account, index) => (
+                <AccountItem following={following} key={index} data={account} />
             ))}
 
             <p className={cx('expandable')} onClick={onViewChange}>
-                {expandable ? 'see less' : 'see all'}
+                {following
+                    ? expandable
+                        ? 'see less'
+                        : 'see more'
+                    : expandable
+                    ? 'see less'
+                    : 'see all'}
             </p>
         </div>
     );
@@ -24,6 +36,7 @@ function SuggestedAccounts({ label, expandable, onViewChange, data = [] }) {
 SuggestedAccounts.propTypes = {
     label: PropTypes.string.isRequired,
     expandable: PropTypes.bool.isRequired,
+    following: PropTypes.bool,
     data: PropTypes.array,
 };
 

@@ -2,6 +2,10 @@ import axios from 'axios';
 
 const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_BASE_URI,
+    headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
 });
 
 export const get = async (path, options = {}) => {

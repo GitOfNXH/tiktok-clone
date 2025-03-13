@@ -236,3 +236,245 @@ export function LockIcon({ width = '14px', height = '16px', className }) {
         </svg>
     );
 }
+
+export function RightArrowIcon({ width = '19px', height = '19px', className }) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M21.68 3.18a2 2 0 0 1 2.14.32l21.5 19a2 2 0 0 1-.02 3.02l-21.5 18.5a2 2 0 0 1-3.3-1.52v-9.97c-5.68.28-11.95 1.75-16.09 5.88A2 2 0 0 1 1 37c0-11.68 7.7-21.05 19.5-21.94V5a2 2 0 0 1 1.18-1.82ZM24.5 30.5v7.64l16.46-14.16L24.5 9.44V17a2 2 0 0 1-2.05 2c-8.4-.21-15.62 5.34-17.09 13.66 4.47-2.7 9.8-3.87 14.98-4.13.68-.03 1.22-.04 1.6-.04 1.19 0 2.56.26 2.56 2.01Z'></path>
+        </svg>
+    );
+}
+
+export function ThreeDotsIcon({ width = '19px', height = '19px', className }) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M5 24a4 4 0 1 1 8 0 4 4 0 0 1-8 0Zm15 0a4 4 0 1 1 8 0 4 4 0 0 1-8 0Zm15 0a4 4 0 1 1 8 0 4 4 0 0 1-8 0Z'></path>
+        </svg>
+    );
+}
+
+export function GearIcon({ width = '19px', height = '19px', className }) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M22.74 2.22a2 2 0 0 0-2.04-.9l-1.37.23a2 2 0 0 0-1.6 1.55l-.35 1.57c-.14.66-.61 1.2-1.24 1.48-1.3.57-2.53 1.29-3.67 2.12-.55.4-1.25.55-1.9.34l-1.54-.5a2 2 0 0 0-2.14.62l-.9 1.07A2 2 0 0 0 5.76 12l.75 1.43c.32.6.3 1.33 0 1.94a19.36 19.36 0 0 0-1.45 3.98 2.13 2.13 0 0 1-1.24 1.48l-1.5.61a2 2 0 0 0-1.24 1.85v1.4a2 2 0 0 0 1.24 1.84l1.5.61c.62.26 1.07.82 1.23 1.49.34 1.39.83 2.73 1.46 3.98.3.61.31 1.33 0 1.94l-.75 1.42a2 2 0 0 0 .23 2.22l.9 1.06a2 2 0 0 0 2.14.62l1.54-.49c.64-.2 1.35-.07 1.9.34 1.14.83 2.37 1.55 3.67 2.12.63.28 1.1.82 1.24 1.48l.34 1.57a2 2 0 0 0 1.61 1.55l1.37.24a2 2 0 0 0 2.04-.9l.86-1.37c.36-.57 1-.92 1.67-.96 1.45-.1 2.85-.34 4.19-.73a2.13 2.13 0 0 1 1.9.33l1.27.98a2 2 0 0 0 2.22.15l1.2-.7a2 2 0 0 0 .99-2l-.22-1.59c-.1-.67.17-1.34.66-1.81a19.6 19.6 0 0 0 2.74-3.26c.37-.56.99-.93 1.67-.96l1.6-.06a2 2 0 0 0 1.8-1.32l.48-1.3a2 2 0 0 0-.54-2.17l-1.19-1.08a2.13 2.13 0 0 1-.66-1.8 19.74 19.74 0 0 0 0-4.27c-.07-.67.16-1.35.66-1.81l1.2-1.08a2 2 0 0 0 .53-2.17l-.48-1.3a2 2 0 0 0-1.8-1.32l-1.6-.06c-.68-.02-1.3-.4-1.67-.96a19.6 19.6 0 0 0-2.74-3.26 2.13 2.13 0 0 1-.66-1.81l.22-1.6a2 2 0 0 0-.98-2l-1.2-.7a2 2 0 0 0-2.23.16l-1.27.98c-.54.42-1.25.52-1.9.33a19.44 19.44 0 0 0-4.19-.73 2.12 2.12 0 0 1-1.67-.96l-.86-1.36ZM39.1 24a15.1 15.1 0 1 1-30.2 0 15.1 15.1 0 0 1 30.2 0Z'></path>
+        </svg>
+    );
+}
+
+export function ProfileVideosIcon({
+    width = '20px',
+    height = '20px',
+    className,
+}) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M11 8a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-2Zm0 18a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V27a1 1 0 0 0-1-1h-2ZM22 9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V9Zm1 17a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V27a1 1 0 0 0-1-1h-2ZM34 9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V9Zm1 17a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V27a1 1 0 0 0-1-1h-2Z'></path>
+        </svg>
+    );
+}
+
+export function ProfileReportsIcon({
+    width = '20px',
+    height = '20px',
+    className,
+}) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M37.7 15v19.7l3.48-3.7a.7.7 0 0 1 .99-.03l1.46 1.37c.28.26.3.7.03.99l-6.26 6.66a2.3 2.3 0 0 1-3.34.01l-6.36-6.66a.7.7 0 0 1 .02-.99l1.45-1.38a.7.7 0 0 1 .99.02l4.14 4.34V15a4.3 4.3 0 0 0-4.3-4.3h-3.5a.7.7 0 0 1-.7-.7V8c0-.39.31-.7.7-.7H30a7.7 7.7 0 0 1 7.7 7.7ZM17.84 17.34 13.7 13v20a4.3 4.3 0 0 0 4.3 4.3h3.5c.39 0 .7.31.7.7v2a.7.7 0 0 1-.7.7H18a7.7 7.7 0 0 1-7.7-7.7V13.63l-3.48 3.7a.7.7 0 0 1-.99.03L4.37 16a.7.7 0 0 1-.03-.98l6.26-6.67a2.3 2.3 0 0 1 3.34-.01l6.36 6.66a.7.7 0 0 1-.02.99l-1.45 1.38a.7.7 0 0 1-.99-.02Z'></path>
+        </svg>
+    );
+}
+
+export function ProfileLikedIcon({
+    width = '20px',
+    height = '20px',
+    className,
+}) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M8.71 10.56c4.24-4.2 10.93-4.15 15.29.63 4.36-4.78 11.05-4.84 15.29-.63a10.82 10.82 0 0 1 2.82 10.55L39.5 18.5c.06-2.1-.71-4.21-2.32-5.81-3.06-3.03-7.92-3.03-11.17.75l-.03.04-.92.91a1.5 1.5 0 0 1-2.12 0l-.92-.91-.03-.04c-3.25-3.78-8.11-3.78-11.17-.75a7.82 7.82 0 0 0 0 11.12L24 36.89l1.95-1.94 2.12 2.12-3.01 3a1.5 1.5 0 0 1-2.12 0L8.71 25.93a10.82 10.82 0 0 1 0-15.38Zm33.14 21.3a16.64 16.64 0 0 0 2.25-2.68 4 4 0 0 0 .22-.41c.04-.09.18-.4.18-.77 0-.3-.09-.56-.12-.64a8.38 8.38 0 0 0-.68-1.32c-.43-.67-1.07-1.5-1.91-2.31a11.15 11.15 0 0 0-10.85-2.8l2.57 2.58.49-.01c2.5 0 4.4 1.14 5.71 2.4a9.87 9.87 0 0 1 1.63 2.02 13.67 13.67 0 0 1-1.6 1.8l2.11 2.13Zm-5.84.27c-.65.24-1.33.37-2.01.37-1.95 0-3.85-1.1-5.37-2.44a13.9 13.9 0 0 1-1.97-2.14l.17-.26a9.87 9.87 0 0 1 2.26-2.45L36 32.13Zm-9.06-9.06a12.74 12.74 0 0 0-3.17 3.89c-.06.13-.12.27-.16.4-.03.08-.12.34-.12.64 0 .37.14.68.18.76a9.6 9.6 0 0 0 .84 1.3c.51.66 1.23 1.47 2.12 2.25 1.74 1.54 4.34 3.19 7.36 3.19 1.57 0 3.02-.44 4.3-1.08l1.93 1.93a1 1 0 0 0 1.42 0l.7-.7a1 1 0 0 0 0-1.42L27.77 19.65a1 1 0 0 0-1.42 0l-.7.7a1 1 0 0 0 0 1.42l1.3 1.3Z'></path>
+        </svg>
+    );
+}
+
+export function WindowFrameIcon({
+    width = '20px',
+    height = '20px',
+    className,
+}) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M4 28a2.5 2.5 0 0 1 2.5-2.5H20a2.5 2.5 0 0 1 2.5 2.5v13.5A2.5 2.5 0 0 1 20 44H6.5A2.5 2.5 0 0 1 4 41.5V28Zm4 1.5V40h10.5V29.5H8ZM25.5 28a2.5 2.5 0 0 1 2.5-2.5h13.5A2.5 2.5 0 0 1 44 28v13.5a2.5 2.5 0 0 1-2.5 2.5H28a2.5 2.5 0 0 1-2.5-2.5V28Zm4 1.5V40H40V29.5H29.5ZM25.5 6.5A2.5 2.5 0 0 1 28 4h13.5A2.5 2.5 0 0 1 44 6.5V20a2.5 2.5 0 0 1-2.5 2.5H28a2.5 2.5 0 0 1-2.5-2.5V6.5Zm4 1.5v10.5H40V8H29.5ZM4 6.5A2.5 2.5 0 0 1 6.5 4H20a2.5 2.5 0 0 1 2.5 2.5V20a2.5 2.5 0 0 1-2.5 2.5H6.5A2.5 2.5 0 0 1 4 20V6.5ZM8 8v10.5h10.5V8H8Z'></path>
+        </svg>
+    );
+}
+
+export function HomeMessageIcon({
+    width = '22px',
+    height = '21px',
+    className,
+}) {
+    return (
+        <svg
+            fill='currentColor'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+            viewBox='0 0 48 48'
+        >
+            <path
+                fillRule='evenodd'
+                d='M2 21.5c0-10.22 9.88-18 22-18s22 7.78 22 18c0 5.63-3.19 10.74-7.32 14.8a43.6 43.6 0 0 1-14.14 9.1A1.5 1.5 0 0 1 22.5 44v-5.04C11.13 38.4 2 31.34 2 21.5M14 25a3 3 0 1 0 0-6 3 3 0 0 0 0 6m10 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6m13-3a3 3 0 1 1-6 0 3 3 0 0 1 6 0'
+                clipRule='evenodd'
+            ></path>
+        </svg>
+    );
+}
+
+export function HomeShareIcon({ width = '24px', height = '24px', className }) {
+    return (
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+            fill='currentColor'
+        >
+            <path
+                fill='currentColor'
+                fillRule='evenodd'
+                d='M10.938 3.175a.674.674 0 0 1 1.138-.488l6.526 6.215c.574.547.554 1.47-.043 1.991l-6.505 5.676a.674.674 0 0 1-1.116-.508V13.49s-6.985-1.258-9.225 2.854c-.209.384-1.023.518-.857-1.395.692-3.52 2.106-9.017 10.082-9.017V3.175Z'
+                clipRule='evenodd'
+            />
+            <path
+                fill='#161823'
+                fillRule='evenodd'
+                d='m15.754 6.212 1.295 2.59a1.122 1.122 0 0 1-.268 1.349l-5.799 5.042s-.28 1.403.562 1.403c.842 0 7.578-6.174 7.578-6.174s.28-.842-.561-1.684c-.843-.842-2.807-2.526-2.807-2.526Z'
+                clipRule='evenodd'
+                opacity='.03'
+            />
+            <path
+                fill='url(#pc-share-44d9fe83_a)'
+                fillRule='evenodd'
+                d='M10.937 6.23v7.297s-6.683-.942-8.777 2.246C.146 18.839.331 12.309 3.363 9.057c3.033-3.252 7.574-2.827 7.574-2.827Z'
+                clipRule='evenodd'
+                opacity='.09'
+            />
+            <defs>
+                <radialGradient
+                    id='pc-share-44d9fe83_a'
+                    cx='0'
+                    cy='0'
+                    r='1'
+                    gradientTransform='rotate(-113.046 11.628 5.43) scale(8.93256 8.78076)'
+                    gradientUnits='userSpaceOnUse'
+                >
+                    <stop />
+                    <stop offset='.995' stopOpacity='.01' />
+                    <stop offset='1' stopOpacity='.01' />
+                </radialGradient>
+            </defs>
+        </svg>
+    );
+}
+
+export function HomeSaveIcon({ width = '24px', height = '24px', className }) {
+    return (
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+            fill='currentColor'
+        >
+            <path
+                fill='currentColor'
+                d='M4 4.5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v15.13a1 1 0 0 1-1.555.831l-6.167-4.12a.5.5 0 0 0-.556 0l-6.167 4.12A1 1 0 0 1 4 19.63V4.5Z'
+            />
+            <path
+                fill='currentColor'
+                fillOpacity='.03'
+                d='M4.032 4.144A1.894 1.894 0 0 0 4 4.5v15.13a1 1 0 0 0 1.555.831l6.167-4.12a.5.5 0 0 1 .41-.066l-.427-.198a1.489 1.489 0 0 0-1.377.063c-.581.339-1.45.85-2.25 1.339-.59.359-1.427.695-2.187.962-.929.325-1.86-.387-1.86-1.37V4.143Zm8.251 12.202 6.162 4.115A1 1 0 0 0 20 19.63V4.5a2 2 0 0 0-1.123-1.798c.21.254.334.58.33.936a117.008 117.008 0 0 1-.896 13.408c-.124.99-1.17 1.553-2.076 1.133l-3.952-1.833Z'
+            />
+        </svg>
+    );
+}
+
+export function HomeHeartIcon({ width = '24px', height = '24px', className }) {
+    return (
+        <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+            fill='currentColor'
+        >
+            <path d='M7.5 2.25c3 0 4.5 2 4.5 2s1.5-2 4.5-2c3.5 0 6 2.75 6 6.25 0 4-3.269 7.566-6.25 10.25C14.41 20.407 13 21.5 12 21.5s-2.45-1.101-4.25-2.75C4.82 16.066 1.5 12.5 1.5 8.5c0-3.5 2.5-6.25 6-6.25Z' />
+        </svg>
+    );
+}
+
+export function PlusIcon({ width = '14px', height = '14px', className }) {
+    return (
+        <svg
+            fill='currentColor'
+            viewBox='0 0 48 48'
+            xmlns='http://www.w3.org/2000/svg'
+            width={width}
+            height={height}
+            className={className}
+        >
+            <path d='M26 7a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v15H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h15v15a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V26h15a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H26V7Z'></path>
+        </svg>
+    );
+}

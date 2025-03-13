@@ -12,4 +12,11 @@ export {
     LiveActiveIcon,
     UserIcon,
     LockIcon,
+    RightArrowIcon,
+    GearIcon,
+    ThreeDotsIcon,
+    ProfileVideosIcon,
+    ProfileReportsIcon,
+    ProfileLikedIcon,
+    WindowFrameIcon,
 } from './Icons';

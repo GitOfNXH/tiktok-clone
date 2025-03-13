@@ -1,20 +1,31 @@
 import PropTypes from 'prop-types';
 import { forwardRef, useState } from 'react';
+import classNames from 'classnames/bind';
+
+import style from './Image.module.scss';
 import images from '~/assets/images';
 
+const cx = classNames.bind(style);
+
 const Image = forwardRef(
-    ({ src, alt, fallback = images.noImage, ...props }, ref) => {
+    (
+        { src, alt, fallback = images.noImage, rounded, className, ...props },
+        ref
+    ) => {
         const [_fallback, setFallback] = useState('');
 
         const handleErrorImage = () => {
             setFallback(fallback);
         };
 
+        const classes = cx({ rounded, [className]: className });
+
         return (
             <img
                 src={_fallback || src}
                 alt={alt}
                 ref={ref}
+                className={classes}
                 {...props}
                 onError={handleErrorImage}
             />
@@ -23,8 +34,8 @@ const Image = forwardRef(
 );
 
 Image.propTypes = {
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
+    src: PropTypes.string,
+    alt: PropTypes.string,
     fallback: PropTypes.string,
 };
 

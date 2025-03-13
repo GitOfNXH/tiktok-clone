@@ -1,6 +1,17 @@
 .wrapper {
     margin-top: 10px;
-    border-top: 1px solid #e3e3e4;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 72%;
+        height: 1px;
+        background-color: #e3e3e4;
+    }
 }
 
 .label {
@@ -24,13 +35,6 @@
 
 .menu-popper {
     width: 100%;
-}
-
-.avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
 }
 
 .info {

@@ -1,21 +1,11 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faEllipsisVertical,
-    faGlobe,
-    faCircleQuestion,
-    faKeyboard,
-    faUser,
-    faCoins,
-    faGear,
-    faSignOut,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { getCurrentUserSelector } from '~/app/selectors';
+import { headerMenuUser, headerMenuItems } from '~/constants';
 import config from '~/configs';
 import style from './Header.module.scss';
 import images from '~/assets/images';
@@ -24,75 +14,26 @@ import Menu from '~/Components/Popper/Menu';
 import { ActivityIcon, MessagesIcon, UploadIcon } from '~/Components/Icons';
 import Image from '~/Components/Image';
 import Search from '../Search';
+import { getCurrentUser } from '~/constants';
 
 const cx = classNames.bind(style);
-
-const menuItems = [
-    {
-        icon: <FontAwesomeIcon icon={faGlobe} />,
-        title: 'English',
-        children: {
-            title: 'Language',
-            data: [
-                {
-                    type: 'Language',
-                    code: 'en',
-                    title: 'English',
-                },
-                {
-                    type: 'Language',
-                    code: 'vi',
-                    title: 'Tiếng Việt',
-                },
-            ],
-        },
-    },
-    {
-        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-        title: 'Feedback and help',
-        to: '/feedback',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
-        title: 'Keyboard shortcuts',
-    },
-];
-
-const menuUser = [
-    {
-        icon: <FontAwesomeIcon icon={faUser} />,
-        title: 'View profile',
-        to: '/@hoaa',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faCoins} />,
-        title: 'Get coins',
-        to: '/coin',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faGear} />,
-        title: 'Setting',
-        to: '/setting',
-    },
-    ...menuItems,
-    {
-        icon: <FontAwesomeIcon icon={faSignOut} />,
-        title: 'Log out',
-        to: '/logout',
-        separate: true,
-    },
-];
-
 function Header() {
-    const currentUser = useSelector(getCurrentUserSelector).data;
+    const navigate = useNavigate();
+
+    const currentUser = getCurrentUser();
 
     const handleChangeItem = item => {
         switch (item.type) {
-            case 'Language':
+            case 'language':
                 console.log('Xu ly thay doi ngon ngu');
                 break;
+            case 'logout':
+                localStorage.setItem('token', '');
+                localStorage.setItem('userData', '{}');
+                navigate('/');
+                break;
             default:
-                throw new Error('Invalid type');
+                return;
         }
     };
 
@@ -106,7 +47,7 @@ function Header() {
                 <Search />
 
                 <div className={cx('actions')}>
-                    {currentUser ? (
+                    {currentUser.id ? (
                         <>
                             <Tippy
                                 delay={[0, 200]}
@@ -150,12 +91,17 @@ function Header() {
                     )}
 
                     <Menu
-                        items={currentUser ? menuUser : menuItems}
+                        items={
+                            currentUser.id ? headerMenuUser : headerMenuItems
+                        }
                         onchange={handleChangeItem}
                     >
-                        {currentUser ? (
+                        {currentUser.id ? (
                             <Image
                                 className={cx('user-avatar')}
+                                width='32px'
+                                height='32px'
+                                rounded
                                 src={currentUser.avatar}
                                 alt={`${currentUser.first_name} ${currentUser.last_name}`}
                             />
