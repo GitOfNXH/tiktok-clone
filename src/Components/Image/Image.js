@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 
 import style from './Image.module.scss';
@@ -12,7 +12,11 @@ const Image = forwardRef(
         { src, alt, fallback = images.noImage, rounded, className, ...props },
         ref
     ) => {
-        const [_fallback, setFallback] = useState('');
+        const [_fallback, setFallback] = useState(src || fallback);
+
+        useEffect(() => {
+            setFallback(src || fallback);
+        }, [src, fallback]);
 
         const handleErrorImage = () => {
             setFallback(fallback);

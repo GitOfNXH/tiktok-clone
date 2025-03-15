@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
+import { useParams } from 'react-router-dom';
 
 import style from './Profile.module.scss';
 import Image from '~/Components/Image';
 import Button from '~/Components/Button';
-import {
-    GearIcon,
-    RightArrowIcon,
-    ThreeDotsIcon,
-    WindowFrameIcon,
-} from '~/Components/Icons';
+import { GearIcon, RightArrowIcon, ThreeDotsIcon } from '~/Components/Icons';
 import * as httpRequest from '~/services/userService';
 import { profileTabs, profileControls } from '~/constants';
-import Video from '~/Components/Video';
 import { getCurrentUser } from '~/constants';
+import VideoBlock from './VideoBlock';
 
 const cx = classNames.bind(style);
 const currentUser = getCurrentUser();
@@ -23,15 +19,9 @@ function Profile() {
     const [controlActive, setControlActive] = useState(1);
     const [userProfile, setUserProfile] = useState();
 
+    const { nickname } = useParams();
+
     useEffect(() => {
-        const getNicknameFromURL = () => {
-            const path = window.location.pathname;
-            const match = path.match(/@([^/]+)/);
-            return match ? match[1] : null;
-        };
-
-        const nickname = getNicknameFromURL();
-
         const fetchApi = async () => {
             try {
                 if (nickname) {
@@ -44,7 +34,7 @@ function Profile() {
         };
 
         fetchApi();
-    }, []);
+    }, [nickname]);
 
     const handleActiveTab = tab => {
         if (tabActive !== tab.id) {
@@ -62,6 +52,7 @@ function Profile() {
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
                 <div className={cx('avatar-wrap')}>
+                    {console.log(userProfile)}
                     <Image
                         src={userProfile && userProfile.avatar}
                         alt={userProfile && userProfile.nickname}
@@ -101,7 +92,9 @@ function Profile() {
                             ) : (
                                 <>
                                     <Button className={cx('btn')} primary>
-                                        Follow
+                                        {userProfile.is_followed
+                                            ? 'Unfollow'
+                                            : 'Follow'}
                                     </Button>
                                     <Button className={cx('btn')} secondary>
                                         Message
@@ -178,37 +171,8 @@ function Profile() {
                         ))}
                     </div>
                 </div>
-                {userProfile && userProfile.videos.length > 0 ? (
-                    <div className={cx('video-block')}>
-                        <p className={cx('title')}>Videos</p>
-                        <div className={cx('video-list')}>
-                            {userProfile.videos.map(video => (
-                                <Video
-                                    key={video.id}
-                                    src={video.file_url}
-                                    poster={video.thumb_url}
-                                    controls
-                                    muted
-                                    className={cx('video-item')}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                ) : (
-                    <div className={cx('no-video-wrapper')}>
-                        <div className={cx('no-video-block')}>
-                            <div className={cx('icon-wrap')}>
-                                <WindowFrameIcon className={cx('icon')} />
-                            </div>
-                            <h2 className={cx('heading')}>
-                                Upload your first video
-                            </h2>
-                            <p className={cx('desc')}>
-                                Your videos will appear here
-                            </p>
-                        </div>
-                    </div>
-                )}
+
+                <VideoBlock userProfile={userProfile} />
             </div>
         </div>
     );

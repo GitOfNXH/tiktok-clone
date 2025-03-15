@@ -19,4 +19,7 @@ export {
     ProfileReportsIcon,
     ProfileLikedIcon,
     WindowFrameIcon,
+    ChevronUpIcon,
+    CloseRegularIcon,
+    SpeakerIcon,
 } from './Icons';

@@ -21,7 +21,7 @@ function PreviewAccount({ data, following }) {
                     src={data.avatar}
                 />
                 <Button primary className={cx('follow-btn')}>
-                    {following ? 'Follow' : 'Un Follow'}
+                    {following ? 'Unfollow' : 'Follow'}
                 </Button>
             </header>
             <div className={cx('body')}>

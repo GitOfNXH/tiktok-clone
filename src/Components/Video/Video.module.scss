@@ -1,0 +1,124 @@
+.video:hover ~ .controls {
+    opacity: 1;
+    visibility: visible;
+}
+
+// Controls
+.controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 6px;
+    color: var(--white-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+
+    &:hover {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .more {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        &:hover {
+            background-color: rgba(225, 225, 225, 0.19);
+        }
+    }
+
+    .speaker {
+        background-color: transparent;
+        position: relative;
+
+        &:hover .range {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .range {
+            position: absolute;
+            right: -62px;
+            top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 24px;
+            border-radius: 99px;
+            background: rgba(22, 24, 35, 0.34);
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.25s, opacity 0.25s;
+        }
+    }
+}
+
+.more,
+.speaker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.speaker-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 50px;
+    height: 2px;
+    background: #fff; /* Màu của thanh trượt */
+    border-radius: 5px;
+    outline: none;
+    transition: 'background' 0.3s;
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 11px;
+        height: 11px;
+        background: #fff; /* Màu của nút kéo */
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+        width: 11px;
+        height: 11px;
+        background: #fff; /* Màu của nút kéo */
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+// Playback
+.pause,
+.play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: rgba(22, 24, 35, 0.34);
+    color: #fff;
+    font-size: 42px;
+    animation: scale 2s linear;
+}
+
+@keyframes scale {
+    from {
+        scale: 1;
+    }
+    to {
+        scale: 2;
+    }
+}

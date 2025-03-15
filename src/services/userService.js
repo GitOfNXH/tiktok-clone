@@ -13,7 +13,7 @@ export const getSuggested = async (page = 1, perPage = 5) => {
 
 export const getUser = async nickname => {
     try {
-        const response = await httpRequest.get(`users/@${nickname}`);
+        const response = await httpRequest.get(`users/${nickname}`);
         return response.data;
     } catch (error) {
         console.log(error);

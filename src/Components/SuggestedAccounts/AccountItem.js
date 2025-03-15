@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { PopperWrapper } from '../Popper';
 import style from './SuggestedAccounts.module.scss';
@@ -29,7 +30,7 @@ function AccountItem({ data, following }) {
                     </div>
                 )}
             >
-                <a href={`/@${data.nickname}`} className={cx('account-item')}>
+                <Link to={`/@${data.nickname}`} className={cx('account-item')}>
                     <Image
                         width='32px'
                         height='32px'
@@ -52,7 +53,7 @@ function AccountItem({ data, following }) {
                                 'no fullname'}
                         </p>
                     </div>
-                </a>
+                </Link>
             </Tippy>
         </div>
     );
