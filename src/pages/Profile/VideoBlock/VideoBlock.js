@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import style from './VideoBlock.module.scss';
 import { WindowFrameIcon } from '~/Components/Icons';
-import Video from '~/Components/Video';
 
 const cx = classNames.bind(style);
 
@@ -13,7 +12,7 @@ function VideoBlock({ userProfile }) {
             <p className={cx('title')}>Videos</p>
             <div className={cx('video-list')}>
                 {userProfile.videos.map(video => (
-                    <Video
+                    <video
                         key={video.id}
                         src={video.file_url}
                         poster={video.thumb_url}

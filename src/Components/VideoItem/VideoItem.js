@@ -1,9 +1,11 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import { forwardRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import style from './VideoItem.module.scss';
-import Video from '../Video';
+import Video from './Video';
 import Image from '../Image';
 import {
     HomeHeartIcon,
@@ -11,21 +13,46 @@ import {
     HomeSaveIcon,
     HomeShareIcon,
     PlusIcon,
-} from '../Icons/Icons';
-import { Link } from 'react-router-dom';
+} from '~/Components/Icons/Icons';
+import { likeVideo } from '~/services/likeService';
 
 const cx = classNames.bind(style);
 
-const VideoItem = forwardRef(({ data, handleCommentActive }, ref) => {
-    const [heartActive, setHeartActive] = useState(false);
+const VideoItem = forwardRef(({ data }, ref) => {
+    const [heartActive, setHeartActive] = useState(
+        data.is_liked ? 'like' : 'unlike'
+    );
     const [saveActive, setSaveActive] = useState(false);
+    const [newData, setNewData] = useState();
+
+    const navigate = useNavigate();
 
     const handleHeartActive = () => {
-        setHeartActive(prev => !prev);
+        let type;
+        if (heartActive === 'unlike') {
+            setHeartActive('like');
+            type = 'like';
+        } else {
+            setHeartActive('unlike');
+            type = 'unlike';
+        }
+        const fetchApi = async () => {
+            try {
+                const res = await likeVideo(data.id, type);
+                setNewData(res);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchApi();
     };
 
     const handleSaveActive = () => {
         setSaveActive(prev => !prev);
+    };
+
+    const handleCommentActive = () => {
+        navigate(`/videos/${data.id}`);
     };
 
     return (
@@ -57,13 +84,17 @@ const VideoItem = forwardRef(({ data, handleCommentActive }, ref) => {
                     <div>
                         <div
                             className={cx('action', 'heart', {
-                                active: heartActive,
+                                active: newData
+                                    ? newData.is_liked
+                                    : data.is_liked,
                             })}
                             onClick={handleHeartActive}
                         >
                             <HomeHeartIcon />
                         </div>
-                        <p className={cx('statistic')}>{data.likes_count}</p>
+                        <p className={cx('statistic')}>
+                            {newData ? newData.likes_count : data.likes_count}
+                        </p>
                     </div>
                     <div>
                         <div

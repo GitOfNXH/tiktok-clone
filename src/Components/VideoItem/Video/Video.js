@@ -11,13 +11,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import style from './Video.module.scss';
-import { SpeakerIcon, ThreeDotsIcon } from '../Icons/Icons';
+import { SpeakerIcon, ThreeDotsIcon } from '~/Components/Icons';
 
 const cx = classNames.bind(style);
 
 const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
     const [speakerValue, setSpeakerValue] = useState(50);
-    const [play, setPlay] = useState(false);
+    const [showIcon, setShowIcon] = useState(null);
+    const [progress, setProgress] = useState(0);
 
     const videoRef = useRef();
     const playRef = useRef();
@@ -29,14 +30,44 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
         videoRef.current.volume = speakerValue / 100;
     }, [speakerValue]);
 
-    const handlePlayVideo = () => {
-        setPlay(prev => !prev);
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            setShowIcon(null);
+        }, 300);
 
-        if (play) {
-            videoRef.current.pause();
-        } else {
+        return () => clearTimeout(timerId);
+    }, [showIcon]);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const updateProgress = () => {
+            const percentage = (video.currentTime / video.duration) * 100;
+            setProgress(percentage);
+        };
+
+        video.addEventListener('timeupdate', updateProgress);
+        return () => video.removeEventListener('timeupdate', updateProgress);
+    }, []);
+
+    const handlePlayVideo = () => {
+        if (videoRef.current.paused) {
+            setShowIcon('play');
             videoRef.current.play();
+        } else {
+            setShowIcon('pause');
+            videoRef.current.pause();
         }
+    };
+
+    const handleNavigate = () => {};
+
+    const handleSeek = e => {
+        const video = videoRef.current;
+        const newTime = (e.target.value / 100) * video.duration;
+        video.currentTime = newTime;
+        setProgress(e.target.value);
     };
 
     return (
@@ -47,6 +78,7 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
                 className={cx('video', { [className]: className })}
                 loop
                 onClick={handlePlayVideo}
+                onDoubleClick={handleNavigate}
                 {...props}
             >
                 <source src={src} type='video/mp4' />
@@ -73,12 +105,27 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
                     <ThreeDotsIcon width='24' height='24' />
                 </div>
             </div>
-            <div ref={playRef} className={cx('play')}>
-                <FontAwesomeIcon icon={faPlay} />
-            </div>
-            <div ref={pauseRef} className={cx('pause')}>
-                <FontAwesomeIcon icon={faPause} />
-            </div>
+            {showIcon === 'play' && (
+                <div ref={playRef} className={cx('play')}>
+                    <FontAwesomeIcon icon={faPlay} />
+                </div>
+            )}
+            {showIcon === 'pause' && (
+                <div ref={pauseRef} className={cx('pause')}>
+                    <FontAwesomeIcon icon={faPause} />
+                </div>
+            )}
+            <input
+                className={cx('progress')}
+                type='range'
+                min='0'
+                max='100'
+                value={progress}
+                onChange={handleSeek}
+                style={{
+                    background: `linear-gradient(to right, #ff3b5c ${progress}%, #ccc ${progress}%)`,
+                }}
+            />
         </>
     );
 });

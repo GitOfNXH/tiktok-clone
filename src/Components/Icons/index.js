@@ -22,4 +22,13 @@ export {
     ChevronUpIcon,
     CloseRegularIcon,
     SpeakerIcon,
+    MusicIcon,
+    ReportIcon,
+    EmbedIcon,
+    SendIcon,
+    FacebookIcon,
+    WhatsAppIcon,
+    AtSignIcon,
+    EmoteIcon,
+    HeartRegularIcon,
 } from './Icons';

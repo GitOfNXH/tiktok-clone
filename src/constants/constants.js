@@ -8,6 +8,7 @@ import {
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { formatDistanceToNow } from 'date-fns';
 
 import {
     ProfileLikedIcon,
@@ -89,3 +90,11 @@ export const headerMenuUser = [
         separate: true,
     },
 ];
+
+export default function TimeAgo(uploadTime) {
+    const timeAgo = formatDistanceToNow(new Date(uploadTime), {
+        addSuffix: true,
+    });
+
+    return timeAgo;
+}

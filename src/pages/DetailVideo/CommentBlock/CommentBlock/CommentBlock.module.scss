@@ -1,0 +1,72 @@
+.wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 24px;
+    padding: 0 32px;
+}
+
+.info {
+    margin-left: 12px;
+    flex: 1;
+}
+
+.name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.2857;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.comment {
+    line-height: 1.3125;
+}
+
+.reply-block {
+    margin-top: 6px;
+    color: rgba(22, 24, 35, 0.5);
+    font-size: 1.4rem;
+    line-height: 1.2857;
+
+    .time-upload {
+        margin-right: 16px;
+    }
+
+    .reply {
+        cursor: pointer;
+    }
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+
+    &:hover .more {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .more {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s, visibility 0.25s;
+    }
+
+    .heart-wrap {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .heart-active {
+        color: var(--primary);
+        scale: 0.83;
+    }
+}

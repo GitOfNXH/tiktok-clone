@@ -1,0 +1,109 @@
+.wrapper {
+    padding-bottom: 24px;
+}
+
+// Header
+.header {
+    position: sticky;
+    top: 0;
+    right: 0;
+    height: 50px;
+    padding: 10px 32px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ccc;
+    background-color: var(--white-color);
+    z-index: 3;
+
+    .tab {
+        flex: 1;
+        height: 48px;
+        border-radius: 0;
+        border-bottom: 2px solid transparent;
+        font-size: 1.4rem;
+        line-height: 1.7143;
+        color: rgba(22, 24, 35, 0.6);
+
+        &.active {
+            border-bottom-color: var(--text-color);
+            color: var(--text-color);
+        }
+    }
+}
+
+// Body
+.body {
+    overflow: auto;
+    margin-bottom: 82px;
+}
+
+// Footer
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(var(--video-info-width));
+    height: 82px;
+    padding: 21px 30px;
+    border-top: 1px solid #ccc;
+    background-color: var(--white-color);
+    z-index: 3;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    flex: 1;
+    padding: 0 9px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background-color: rgba(22, 24, 35, 0.06);
+}
+
+.input {
+    flex: 1;
+    caret-color: var(--primary);
+    font-size: 1.4rem;
+    line-height: 1.2143;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+
+    .icon-wrap {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.12);
+        }
+    }
+}
+
+.post-btn {
+    flex-shrink: 0;
+    padding: 0;
+    min-width: 48px;
+    height: 40px;
+    margin-right: 4px;
+}
+
+.post-btn {
+    font-weight: 600;
+    font-size: 1.4rem;
+    display: block;
+    text-align: right;
+    color: rgba(22, 24, 35, 0.34);
+}

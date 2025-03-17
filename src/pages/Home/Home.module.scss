@@ -7,24 +7,17 @@
     height: 100%;
 }
 
-// Aside
-.aside {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 384px;
-    transform: translateX(384px);
+.videos-list {
     transition: transform 0.25s;
-    height: calc(100vh - var(--default-layout-header-hight));
-    border-left: 2px solid var(--secondary);
 }
 
 // Controls
 .controls {
-    position: absolute;
-    left: -64px;
+    position: fixed;
+    right: 24px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 5;
 }
 
 .control {
@@ -42,72 +35,5 @@
 
     & + & {
         margin: 14px 0 0;
-    }
-}
-
-// Comment box
-.comment-box {
-    padding: 12px 6px 12px 12px;
-    width: 100%;
-    height: 100%;
-    background-color: var(--white-color);
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .close {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px;
-        height: 28px;
-        background-color: var(--secondary);
-        border-radius: 50%;
-    }
-}
-
-.title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.3;
-
-    .number {
-        font-weight: 500;
-    }
-}
-
-.body {
-    padding: 24px 0 124px;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-}
-
-.footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    height: 72px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 12px;
-    background-color: var(--white-color);
-
-    .input {
-        height: 46px;
-        width: 80%;
-        padding: 0 9px;
-        background-color: var(--secondary);
-        border: 1px solid transparent;
-    }
-
-    .post {
-        padding: 8px;
-        min-width: 40px;
     }
 }

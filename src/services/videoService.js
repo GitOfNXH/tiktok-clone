@@ -10,3 +10,12 @@ export const getVideoList = async (type = 'for-you', page = 1) => {
         console.log(error);
     }
 };
+
+export const getVideo = async path => {
+    try {
+        const response = await httpRequest.get(path);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

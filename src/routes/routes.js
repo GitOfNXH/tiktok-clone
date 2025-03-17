@@ -13,6 +13,7 @@ import {
     LivePage,
     LoginPage,
     RegisterPage,
+    DetailVideoPage,
 } from '~/pages';
 
 const publicRoutes = [
@@ -24,6 +25,7 @@ const publicRoutes = [
     { path: config.routes.live, component: LivePage },
     { path: config.routes.login, component: LoginPage, layout: null },
     { path: config.routes.register, component: RegisterPage, layout: null },
+    { path: config.routes.video, component: DetailVideoPage, layout: null },
 ];
 
 const privateRoutes = [];

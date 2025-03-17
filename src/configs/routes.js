@@ -7,6 +7,7 @@ const routes = {
     live: '/live',
     login: '/login',
     register: '/register',
+    video: '/videos/:id',
 };
 
 export default routes;
