@@ -18,17 +18,13 @@ function Login() {
     const handleLogin = e => {
         e.preventDefault();
         const fetchApi = async () => {
-            try {
-                const response = await httpRequest.postLogin({
-                    email,
-                    password,
-                });
-                localStorage.setItem('token', response.meta.token);
-                localStorage.setItem('userData', JSON.stringify(response.data));
-                navigate('/');
-            } catch (error) {
-                throw new Error(error);
-            }
+            const response = await httpRequest.postLogin({
+                email,
+                password,
+            });
+            localStorage.setItem('token', response.meta.token);
+            localStorage.setItem('userData', JSON.stringify(response.data));
+            navigate('/');
         };
         fetchApi();
     };

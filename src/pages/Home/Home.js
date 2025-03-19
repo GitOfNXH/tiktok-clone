@@ -19,12 +19,8 @@ function Home() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            try {
-                const response = await getVideoList('for-you', 1);
-                setVideosList(response);
-            } catch (error) {
-                console.log(error);
-            }
+            const response = await getVideoList('for-you', 1);
+            setVideosList(response);
         };
         fetchApi();
     }, []);

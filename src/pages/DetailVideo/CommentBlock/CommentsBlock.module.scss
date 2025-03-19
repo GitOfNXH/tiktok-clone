@@ -1,17 +1,21 @@
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .wrapper {
     padding-bottom: 24px;
 }
 
 // Header
 .header {
+    @include center();
     position: sticky;
     top: 0;
     right: 0;
     height: 50px;
     padding: 10px 32px 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-bottom: 1px solid #ccc;
     background-color: var(--white-color);
     z-index: 3;
@@ -55,9 +59,7 @@
 }
 
 .input-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include center();
     height: 40px;
     flex: 1;
     padding: 0 9px;
@@ -78,11 +80,9 @@
     align-items: center;
 
     .icon-wrap {
+        @include center();
         width: 32px;
         height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         border-radius: 8px;
         cursor: pointer;
 
@@ -106,4 +106,8 @@
     display: block;
     text-align: right;
     color: rgba(22, 24, 35, 0.34);
+
+    &.active {
+        color: var(--primary);
+    }
 }

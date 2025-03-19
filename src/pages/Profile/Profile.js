@@ -23,13 +23,9 @@ function Profile() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            try {
-                if (nickname) {
-                    const response = await httpRequest.getUser(nickname);
-                    setUserProfile(response);
-                }
-            } catch (error) {
-                console.log(error);
+            if (nickname) {
+                const response = await httpRequest.getUser(nickname);
+                setUserProfile(response);
             }
         };
 
@@ -52,7 +48,6 @@ function Profile() {
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
                 <div className={cx('avatar-wrap')}>
-                    {console.log(userProfile)}
                     <Image
                         src={userProfile && userProfile.avatar}
                         alt={userProfile && userProfile.nickname}

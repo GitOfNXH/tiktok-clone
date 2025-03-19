@@ -1,7 +1,11 @@
-.video-item {
+@mixin center {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.video-item {
+    @include center();
     height: calc(100vh - var(--default-layout-header-hight));
     position: relative;
     z-index: 2;
@@ -39,9 +43,7 @@
     cursor: pointer;
 
     .follow {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include center();
         position: absolute;
         top: 100%;
         left: 50%;
@@ -55,9 +57,7 @@
 }
 
 .action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include center();
     width: 48px;
     height: 48px;
     border-radius: 50%;

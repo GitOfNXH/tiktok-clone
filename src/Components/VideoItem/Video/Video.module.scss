@@ -1,3 +1,9 @@
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .video:hover ~ .controls {
     opacity: 1;
     visibility: visible;
@@ -39,12 +45,10 @@
         }
 
         .range {
+            @include center;
             position: absolute;
             right: -62px;
             top: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             width: 64px;
             height: 24px;
             border-radius: 99px;
@@ -58,9 +62,7 @@
 
 .more,
 .speaker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include center;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -98,20 +100,18 @@
 // Playback
 .pause,
 .play {
+    @include center();
     position: absolute;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 62px;
     height: 62px;
     border-radius: 50%;
     background: rgba(22, 24, 35, 0.34);
     color: #fff;
     font-size: 42px;
-    animation: scale 0.3s linear;
+    animation: scale 0.4s linear;
 }
 
 @keyframes scale {

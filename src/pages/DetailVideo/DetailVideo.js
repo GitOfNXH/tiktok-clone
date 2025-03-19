@@ -1,16 +1,20 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import TimeAgo from '~/constants/constants';
 import * as httpRequest from '~/services/videoService';
 import { likeVideo as requestLikeVideo } from '~/services/likeService';
+import { Follow as requestFollow } from '~/services/followService';
 import style from './DetailVideo.module.scss';
 import Button from '~/Components/Button';
 import { MusicIcon } from '~/Components/Icons';
 import {
+    ChevronDownIcon,
+    ChevronUpIcon,
+    CloseRegularIcon,
     EmbedIcon,
     FacebookIcon,
     HomeHeartIcon,
@@ -19,6 +23,8 @@ import {
     HomeShareIcon,
     ReportIcon,
     SendIcon,
+    SpeakerIcon,
+    ThreeDotsIcon,
     WhatsAppIcon,
 } from '~/Components/Icons/Icons';
 import Image from '~/Components/Image';
@@ -30,24 +36,64 @@ function DetailVideo() {
     const [video, setVideo] = useState();
     const [copied, setCopied] = useState(false);
     const [likeVideo, setLikeVideo] = useState('unlike');
+    const [progress, setProgress] = useState(0);
+    const [speakerValue, setSpeakerValue] = useState(50);
+    const [videosList, setVideosList] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [showPauseIcon, setShowPauseIcon] = useState(false);
 
     const linkRef = useRef(null);
+    const videoRef = useRef();
+    const lastScrollTime = useRef(0);
+
+    const navigate = useNavigate();
+
+    const param = useParams();
 
     useEffect(() => {
         const fetchApi = async () => {
-            try {
-                const video = await httpRequest.getVideo(
-                    window.location.pathname
-                );
+            if (param) {
+                const video = await httpRequest.getVideo(`videos/${param.id}`);
                 setVideo(video);
-                console.log(video);
-            } catch (error) {
-                console.log(error);
+                videoRef.current.load();
             }
         };
 
         fetchApi();
+    }, [param]);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const updateProgress = () => {
+            const percentage = (video.currentTime / video.duration) * 100;
+            setProgress(percentage);
+        };
+
+        video.addEventListener('timeupdate', updateProgress);
+        return () => video.removeEventListener('timeupdate', updateProgress);
     }, []);
+
+    useEffect(() => {
+        videoRef.current.volume = speakerValue / 100;
+    }, [speakerValue]);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const response = await httpRequest.getVideoList('for-you', 1);
+            setVideosList(response);
+        };
+        fetchApi();
+    }, []);
+
+    useEffect(() => {
+        videosList.forEach((videoItem, index) => {
+            if (video?.id === videoItem?.id) {
+                setCurrentIndex(index);
+            }
+        });
+    }, [video, videosList]);
 
     const handleCopy = () => {
         const linkText = linkRef.current.innerText;
@@ -68,19 +114,145 @@ function DetailVideo() {
         fetchApi();
     };
 
+    const handleSeek = e => {
+        const video = videoRef.current;
+        const newTime = (e.target.value / 100) * video.duration;
+        video.currentTime = newTime;
+        setProgress(e.target.value);
+    };
+
+    const handlePlayVideo = () => {
+        if (videoRef.current.paused) {
+            setShowPauseIcon(false);
+            videoRef.current.play();
+        } else {
+            setShowPauseIcon(true);
+            videoRef.current.pause();
+        }
+    };
+
+    const handleClose = () => {
+        navigate('/');
+    };
+
+    const handlePrevVideo = () => {
+        if (currentIndex > 0) {
+            const nextVideoId = videosList[currentIndex - 1].id;
+            navigate(`/videos/${nextVideoId}`);
+        }
+    };
+
+    const handleNextVideo = () => {
+        if (currentIndex < videosList.length - 1) {
+            const nextVideoId = videosList[currentIndex + 1].id;
+            navigate(`/videos/${nextVideoId}`);
+        }
+    };
+
+    const handleScroll = e => {
+        const now = Date.now();
+
+        if (now - lastScrollTime.current < 500) return;
+
+        if (e.deltaY > 0 && currentIndex < videosList.length - 1) {
+            handleNextVideo();
+        } else if (e.deltaY < 0 && currentIndex > 0) {
+            handlePrevVideo();
+        }
+
+        lastScrollTime.current = now;
+    };
+
+    const handleFollow = async () => {
+        const type = video.user.is_followed ? 'unfollow' : 'follow';
+        await requestFollow(video.user.id, type);
+
+        setVideo(prev => ({
+            ...prev,
+            user: { ...prev.user, is_followed: !prev.user.is_followed },
+        }));
+    };
+
     return (
         <main className={cx('wrapper')}>
-            <div className={cx('video-wrap')}>
-                <div className={cx('video-block')}>
+            <div className={cx('video-block')}>
+                <div className={cx('video-wrap')}>
                     <video
+                        ref={videoRef}
+                        poster={video?.thumb_url}
                         className={cx('video')}
-                        poster={video && video.thumb_url}
+                        loop
+                        autoPlay
+                        onClick={handlePlayVideo}
+                        onWheel={handleScroll}
                     >
                         <source
                             src={video && video.file_url}
                             type='video/mp4'
-                        ></source>
+                        />
                     </video>
+
+                    <div className={cx('controls')}>
+                        <div className={cx('close')} onClick={handleClose}>
+                            <CloseRegularIcon width='24' height='24' />
+                        </div>
+                        <div className={cx('three-dots')}>
+                            <ThreeDotsIcon width='26' height='26' />
+                        </div>
+                        <div className={cx('actions')}>
+                            <div
+                                className={cx('prev')}
+                                onClick={handlePrevVideo}
+                            >
+                                <ChevronUpIcon />
+                            </div>
+                            <div
+                                className={cx('next')}
+                                onClick={handleNextVideo}
+                            >
+                                <ChevronDownIcon />
+                            </div>
+                        </div>
+                        <div className={cx('speaker')}>
+                            <SpeakerIcon />
+                            <div className={cx('speaker-range-wrap')}>
+                                <input
+                                    className={cx('speaker-range')}
+                                    type='range'
+                                    min={0}
+                                    max={100}
+                                    step={1}
+                                    value={speakerValue}
+                                    onChange={e =>
+                                        setSpeakerValue(e.target.value)
+                                    }
+                                    style={{
+                                        background: `linear-gradient(to right, #fff ${speakerValue}%, #ccc ${speakerValue}%)`,
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className={cx('progress')}>
+                            <input
+                                className={cx('range')}
+                                type='range'
+                                min={0}
+                                max={100}
+                                step={1}
+                                value={progress ? progress : 0}
+                                onChange={handleSeek}
+                                style={{
+                                    background: `linear-gradient(to right, #fff ${progress}%, #ffffff57 ${progress}%)`,
+                                }}
+                            />
+                            <span></span>
+                        </div>
+                    </div>
+                    {showPauseIcon && (
+                        <div className={cx('pause')} onClick={handlePlayVideo}>
+                            <FontAwesomeIcon icon={faPlay} />
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -96,31 +268,28 @@ function DetailVideo() {
                                     width={40}
                                     height={40}
                                     rounded
-                                    src={video && video.user.avatar}
-                                    alt={video && video.user.nickname}
+                                    src={video?.user.avatar}
+                                    alt={video?.user.nickname}
                                 />
                                 <div>
                                     <div>
                                         <h4 className={cx('nickname')}>
-                                            {video ? video.user.nickname : ''}
+                                            {video?.user.nickname}
                                         </h4>
-                                        {video
-                                            ? video.user.tick && (
-                                                  <FontAwesomeIcon
-                                                      className={cx('check')}
-                                                      icon={faCheckCircle}
-                                                  />
-                                              )
-                                            : null}
+                                        {video?.user.tick && (
+                                            <FontAwesomeIcon
+                                                className={cx('check')}
+                                                icon={faCheckCircle}
+                                            />
+                                        )}
                                     </div>
                                     <div className={cx('name')}>
-                                        {video &&
-                                            `${video.user.first_name} ${video.user.last_name}`}
+                                        {`${video?.user.first_name} ${video?.user.last_name}`}
                                         <span className={cx('dot')}>.</span>
                                         <span>
                                             {video &&
                                                 TimeAgo(
-                                                    video.published_at.replace(
+                                                    video?.published_at.replace(
                                                         ' ',
                                                         'T'
                                                     )
@@ -129,8 +298,8 @@ function DetailVideo() {
                                     </div>
                                 </div>
                             </Link>
-                            <Button primary>
-                                {video && video.user.is_followed
+                            <Button onClick={handleFollow} primary>
+                                {video?.user.is_followed
                                     ? 'Following'
                                     : 'Follow'}
                             </Button>
@@ -154,7 +323,7 @@ function DetailVideo() {
                             >
                                 <HomeHeartIcon
                                     className={cx('icon', 'heart', {
-                                        active: likeVideo === 'like',
+                                        active: video ? video.is_liked : false,
                                     })}
                                 />
                             </div>

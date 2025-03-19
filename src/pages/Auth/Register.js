@@ -19,21 +19,17 @@ function Register() {
     const handleSubmitForm = e => {
         e.preventDefault();
         const fetchApi = async () => {
-            try {
-                const response = await postRegister({
-                    type: 'email',
-                    email: email,
-                    password: password,
-                });
-                if (response) {
-                    setEmail('');
-                    setPassword('');
-                    setConfirmPassword('');
-                    alert('Bạn đã đăng ký tài khoản thành công!');
-                    loginLinkRef.current.click();
-                }
-            } catch (error) {
-                throw new Error(error);
+            const response = await postRegister({
+                type: 'email',
+                email: email,
+                password: password,
+            });
+            if (response) {
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
+                alert('Bạn đã đăng ký tài khoản thành công!');
+                loginLinkRef.current.click();
             }
         };
         fetchApi();

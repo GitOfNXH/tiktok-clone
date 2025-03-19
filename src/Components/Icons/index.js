@@ -31,4 +31,5 @@ export {
     AtSignIcon,
     EmoteIcon,
     HeartRegularIcon,
+    CheckIcon,
 } from './Icons';

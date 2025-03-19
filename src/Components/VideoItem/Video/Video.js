@@ -33,7 +33,7 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
     useEffect(() => {
         const timerId = setTimeout(() => {
             setShowIcon(null);
-        }, 300);
+        }, 400);
 
         return () => clearTimeout(timerId);
     }, [showIcon]);
@@ -61,8 +61,6 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
         }
     };
 
-    const handleNavigate = () => {};
-
     const handleSeek = e => {
         const video = videoRef.current;
         const newTime = (e.target.value / 100) * video.duration;
@@ -78,7 +76,6 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
                 className={cx('video', { [className]: className })}
                 loop
                 onClick={handlePlayVideo}
-                onDoubleClick={handleNavigate}
                 {...props}
             >
                 <source src={src} type='video/mp4' />
@@ -106,12 +103,20 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
                 </div>
             </div>
             {showIcon === 'play' && (
-                <div ref={playRef} className={cx('play')}>
+                <div
+                    ref={playRef}
+                    className={cx('play')}
+                    onClick={handlePlayVideo}
+                >
                     <FontAwesomeIcon icon={faPlay} />
                 </div>
             )}
             {showIcon === 'pause' && (
-                <div ref={pauseRef} className={cx('pause')}>
+                <div
+                    ref={pauseRef}
+                    className={cx('pause')}
+                    onClick={handlePlayVideo}
+                >
                     <FontAwesomeIcon icon={faPause} />
                 </div>
             )}

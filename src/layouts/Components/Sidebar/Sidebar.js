@@ -51,32 +51,24 @@ function Sidebar() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            try {
-                let data = [];
-                data = isSeeAll
-                    ? await getSuggested(1, 20)
-                    : await getSuggested(1, 5);
-                setSuggested(data);
-            } catch (error) {
-                throw new Error(error);
-            }
+            let data = [];
+            data = isSeeAll
+                ? await getSuggested(1, 20)
+                : await getSuggested(1, 5);
+            setSuggested(data);
         };
         fetchApi();
     }, [isSeeAll]);
 
     useEffect(() => {
         const fetchApi = async () => {
-            try {
-                let data = [];
-                if (currentUser.id && !isSeeMore) {
-                    data = await getFollowings(1);
-                    setFollowings(data);
-                } else if (currentUser.id && isSeeMore) {
-                    data = await getFollowings(2);
-                    setFollowings(prev => prev.concat(data));
-                }
-            } catch (error) {
-                throw new Error(error);
+            let data = [];
+            if (currentUser.id && !isSeeMore) {
+                data = await getFollowings(1);
+                setFollowings(data);
+            } else if (currentUser.id && isSeeMore) {
+                data = await getFollowings(2);
+                setFollowings(prev => prev.concat(data));
             }
         };
         fetchApi();

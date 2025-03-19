@@ -44,8 +44,6 @@ function Button({
         props.to = to;
     } else if (href) {
         props.href = href;
-        console.log(Comp);
-
         Comp = 'a';
     }
 

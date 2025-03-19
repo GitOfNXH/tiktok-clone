@@ -8,6 +8,7 @@ import style from './VideoItem.module.scss';
 import Video from './Video';
 import Image from '../Image';
 import {
+    CheckIcon,
     HomeHeartIcon,
     HomeMessageIcon,
     HomeSaveIcon,
@@ -15,6 +16,7 @@ import {
     PlusIcon,
 } from '~/Components/Icons/Icons';
 import { likeVideo } from '~/services/likeService';
+import * as httpRequest from '~/services/followService';
 
 const cx = classNames.bind(style);
 
@@ -24,6 +26,9 @@ const VideoItem = forwardRef(({ data }, ref) => {
     );
     const [saveActive, setSaveActive] = useState(false);
     const [newData, setNewData] = useState();
+    const [follow, setFollow] = useState(
+        data.user.is_followed ? 'unfollow' : 'follow'
+    );
 
     const navigate = useNavigate();
 
@@ -37,12 +42,8 @@ const VideoItem = forwardRef(({ data }, ref) => {
             type = 'unlike';
         }
         const fetchApi = async () => {
-            try {
-                const res = await likeVideo(data.id, type);
-                setNewData(res);
-            } catch (error) {
-                console.log(error);
-            }
+            const res = await likeVideo(data.id, type);
+            setNewData(res);
         };
         fetchApi();
     };
@@ -53,6 +54,11 @@ const VideoItem = forwardRef(({ data }, ref) => {
 
     const handleCommentActive = () => {
         navigate(`/videos/${data.id}`);
+    };
+
+    const handleFollow = async () => {
+        const response = await httpRequest.Follow(data.user.id, follow);
+        setFollow(response.is_followed ? 'unfollow' : 'follow');
     };
 
     return (
@@ -67,20 +73,22 @@ const VideoItem = forwardRef(({ data }, ref) => {
                     />
                 </div>
                 <div className={cx('video-actions')}>
-                    <Link
-                        to={`/@${data.user.nickname}`}
-                        className={cx('profile')}
-                    >
-                        <Image
-                            width={48}
-                            height={48}
-                            rounded
-                            src={data.user.avatar}
-                        />
-                        <div className={cx('follow')}>
-                            <PlusIcon />
+                    <div className={cx('profile')}>
+                        <Link
+                            to={`/@${data.user.nickname}`}
+                            className={cx('avatar')}
+                        >
+                            <Image
+                                width={48}
+                                height={48}
+                                rounded
+                                src={data.user.avatar}
+                            />
+                        </Link>
+                        <div className={cx('follow')} onClick={handleFollow}>
+                            {follow === 'follow' ? <PlusIcon /> : <CheckIcon />}
                         </div>
-                    </Link>
+                    </div>
                     <div>
                         <div
                             className={cx('action', 'heart', {

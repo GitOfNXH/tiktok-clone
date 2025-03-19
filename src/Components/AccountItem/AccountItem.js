@@ -9,8 +9,6 @@ import style from './AccountItem.module.scss';
 const cx = classNames.bind(style);
 
 function AccountItem({ data, className }) {
-    console.log(data);
-
     return (
         <Link
             to={`/@${data.nickname}`}

@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 import style from './VideoBlock.module.scss';
 import { WindowFrameIcon } from '~/Components/Icons';
@@ -7,6 +9,19 @@ import { WindowFrameIcon } from '~/Components/Icons';
 const cx = classNames.bind(style);
 
 function VideoBlock({ userProfile }) {
+    const videoRef = useRef();
+
+    const navigate = useNavigate();
+
+    const handlePlayVideo = e => {
+        e.target.play();
+    };
+
+    const handlePauseVideo = e => {
+        e.target.currentTime = 0;
+        e.target.pause();
+    };
+
     return userProfile && userProfile.videos.length > 0 ? (
         <div className={cx('video-block')}>
             <p className={cx('title')}>Videos</p>
@@ -14,12 +29,16 @@ function VideoBlock({ userProfile }) {
                 {userProfile.videos.map(video => (
                     <video
                         key={video.id}
-                        src={video.file_url}
+                        ref={videoRef}
                         poster={video.thumb_url}
-                        controls
                         muted
                         className={cx('video-item')}
-                    />
+                        onMouseEnter={handlePlayVideo}
+                        onMouseLeave={handlePauseVideo}
+                        onClick={() => navigate(`/videos/${video.id}`)}
+                    >
+                        <source src={video.file_url} type='video/mp4'></source>
+                    </video>
                 ))}
             </div>
         </div>

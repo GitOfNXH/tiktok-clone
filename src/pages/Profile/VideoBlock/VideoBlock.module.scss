@@ -1,3 +1,9 @@
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .video-block {
     margin-top: 32px;
 }
@@ -19,14 +25,13 @@
     height: calc(16vw * 1.5);
     object-fit: cover;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 // No video
 .no-video-wrapper {
-    display: flex;
-    align-items: center;
+    @include center;
     min-height: 490px;
-    justify-content: center;
 }
 
 .no-video-block {
@@ -49,9 +54,7 @@
 }
 
 .icon-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include center();
     width: 92px;
     height: 92px;
     border-radius: 50%;
