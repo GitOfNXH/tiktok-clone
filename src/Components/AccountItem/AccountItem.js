@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import style from './AccountItem.module.scss';
@@ -9,9 +9,15 @@ import style from './AccountItem.module.scss';
 const cx = classNames.bind(style);
 
 function AccountItem({ data, className }) {
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate(`/@${data.nickname}`);
+    };
+
     return (
-        <Link
-            to={`/@${data.nickname}`}
+        <article
+            onClick={handleNavigate}
             className={cx('wrapper', { [className]: className })}
         >
             <img
@@ -31,7 +37,7 @@ function AccountItem({ data, className }) {
                 </h4>
                 <p className={cx('user-name')}>{data.nickname}</p>
             </div>
-        </Link>
+        </article>
     );
 }
 

@@ -1,45 +1,15 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
-import config from '~/configs';
 import { MenuItem } from './Menu';
-import {
-    HomeIcon,
-    FollowingIcon,
-    LiveIcon,
-    HomeActiveIcon,
-    FollowingActiveIcon,
-    LiveActiveIcon,
-} from '~/Components/Icons';
 import Menu from './Menu';
 import style from './Sidebar.module.scss';
 import SuggestedAccounts from '~/Components/SuggestedAccounts';
 import { getSuggested } from '~/services/userService';
 import { getFollowings } from '~/services/followService';
-import { getCurrentUser } from '~/constants';
+import { getCurrentUser, menuItems } from '~/constants';
 
 const cx = classNames.bind(style);
-
-const menuItems = [
-    {
-        to: config.routes.home,
-        icon: HomeIcon,
-        activeIcon: HomeActiveIcon,
-        title: 'For You',
-    },
-    {
-        to: config.routes.following,
-        icon: FollowingIcon,
-        activeIcon: FollowingActiveIcon,
-        title: 'Following',
-    },
-    {
-        to: config.routes.live,
-        icon: LiveIcon,
-        activeIcon: LiveActiveIcon,
-        title: 'LIVE',
-    },
-];
 
 function Sidebar() {
     const [suggested, setSuggested] = useState([]);
@@ -48,6 +18,7 @@ function Sidebar() {
     const [followings, setFollowings] = useState([]);
 
     const currentUser = getCurrentUser();
+    console.log('Sidebar');
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -61,17 +32,19 @@ function Sidebar() {
     }, [isSeeAll]);
 
     useEffect(() => {
-        const fetchApi = async () => {
-            let data = [];
-            if (currentUser.id && !isSeeMore) {
-                data = await getFollowings(1);
-                setFollowings(data);
-            } else if (currentUser.id && isSeeMore) {
-                data = await getFollowings(2);
-                setFollowings(prev => prev.concat(data));
-            }
-        };
-        fetchApi();
+        if (currentUser.id) {
+            const fetchApi = async () => {
+                let data = [];
+                if (!isSeeMore) {
+                    data = await getFollowings(1);
+                    setFollowings(data);
+                } else if (isSeeMore) {
+                    data = await getFollowings(2);
+                    setFollowings(prev => prev.concat(data));
+                }
+            };
+            fetchApi();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSeeMore]);
 

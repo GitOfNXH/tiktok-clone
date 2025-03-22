@@ -9,12 +9,20 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formatDistanceToNow } from 'date-fns';
+import { createContext } from 'react';
 
 import {
     ProfileLikedIcon,
     ProfileReportsIcon,
     ProfileVideosIcon,
+    HomeIcon,
+    FollowingIcon,
+    LiveIcon,
+    HomeActiveIcon,
+    FollowingActiveIcon,
+    LiveActiveIcon,
 } from '~/Components/Icons';
+import config from '~/configs';
 
 export const getCurrentUser = () =>
     JSON.parse(localStorage.getItem('userData'));
@@ -98,3 +106,26 @@ export default function TimeAgo(uploadTime) {
 
     return timeAgo;
 }
+
+export const ToastContext = createContext();
+
+export const menuItems = [
+    {
+        to: config.routes.home,
+        icon: HomeIcon,
+        activeIcon: HomeActiveIcon,
+        title: 'For You',
+    },
+    {
+        to: config.routes.following,
+        icon: FollowingIcon,
+        activeIcon: FollowingActiveIcon,
+        title: 'Following',
+    },
+    {
+        to: config.routes.live,
+        icon: LiveIcon,
+        activeIcon: LiveActiveIcon,
+        title: 'LIVE',
+    },
+];

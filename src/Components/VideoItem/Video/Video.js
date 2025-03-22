@@ -11,7 +11,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import style from './Video.module.scss';
-import { SpeakerIcon, ThreeDotsIcon } from '~/Components/Icons';
+import {
+    MuteSpeakerIcon,
+    SpeakerIcon,
+    ThreeDotsIcon,
+} from '~/Components/Icons';
 
 const cx = classNames.bind(style);
 
@@ -19,6 +23,7 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
     const [speakerValue, setSpeakerValue] = useState(50);
     const [showIcon, setShowIcon] = useState(null);
     const [progress, setProgress] = useState(0);
+    const [mute, setMute] = useState(false);
 
     const videoRef = useRef();
     const playRef = useRef();
@@ -68,6 +73,10 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
         setProgress(e.target.value);
     };
 
+    const handleMute = () => {
+        setMute(prev => !prev);
+    };
+
     return (
         <>
             <video
@@ -75,6 +84,7 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
                 poster={poster}
                 className={cx('video', { [className]: className })}
                 loop
+                muted={mute}
                 onClick={handlePlayVideo}
                 {...props}
             >
@@ -82,7 +92,13 @@ const Video = forwardRef(({ src, poster, className, ...props }, ref) => {
             </video>
             <div className={cx('controls')}>
                 <div className={cx('speaker')}>
-                    <SpeakerIcon className={cx('speaker-icon')} />
+                    <div onClick={handleMute}>
+                        {mute ? (
+                            <MuteSpeakerIcon className={cx('speaker-icon')} />
+                        ) : (
+                            <SpeakerIcon className={cx('speaker-icon')} />
+                        )}
+                    </div>
                     <div className={cx('range')}>
                         <input
                             className={cx('speaker-range')}

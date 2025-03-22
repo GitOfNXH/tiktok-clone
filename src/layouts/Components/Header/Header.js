@@ -25,12 +25,11 @@ function Header() {
     const handleChangeItem = item => {
         switch (item.type) {
             case 'language':
-                console.log('Xu ly thay doi ngon ngu');
                 break;
             case 'logout':
                 localStorage.setItem('token', '');
                 localStorage.setItem('userData', '{}');
-                navigate('/');
+                navigate('/login');
                 break;
             default:
                 return;

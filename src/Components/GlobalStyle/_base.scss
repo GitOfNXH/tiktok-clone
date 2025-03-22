@@ -65,17 +65,13 @@ body {
 input,
 select,
 textarea,
-button {
-    font-family: inherit;
-    font-size: inherit;
-    background-color: transparent;
-}
-
-input,
 button,
 [tabIndex] {
     border: none;
     outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    background-color: transparent;
 }
 
 a {

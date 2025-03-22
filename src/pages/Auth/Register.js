@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { postRegister } from '~/services/authService';
+import * as httpRequest from '~/services/authService';
 import style from './Auth.module.scss';
 import { LockIcon, UserIcon } from '~/Components/Icons';
 import Button from '~/Components/Button';
+import { ToastContext } from '~/constants';
 
 const cx = classNames.bind(style);
 
@@ -14,22 +15,32 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const loginLinkRef = useRef();
+    const navigate = useNavigate();
+    const showToastMessage = useContext(ToastContext);
 
     const handleSubmitForm = e => {
         e.preventDefault();
         const fetchApi = async () => {
-            const response = await postRegister({
-                type: 'email',
-                email: email,
-                password: password,
-            });
-            if (response) {
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('');
-                alert('Bạn đã đăng ký tài khoản thành công!');
-                loginLinkRef.current.click();
+            if (password === confirmPassword) {
+                const response = await httpRequest.postRegister({
+                    type: 'email',
+                    email: email,
+                    password: password,
+                });
+                if (response) {
+                    setEmail('');
+                    setPassword('');
+                    setConfirmPassword('');
+                    showToastMessage('success', 'Tạo tài khoản thành công!');
+                    navigate('/login');
+                } else {
+                    showToastMessage(
+                        'error',
+                        'Email không đúng hoặc đã có người sử dụng'
+                    );
+                }
+            } else {
+                showToastMessage('error', 'Mật khẩu nhập lại không trùng khớp');
             }
         };
         fetchApi();
@@ -98,11 +109,7 @@ function Register() {
                     </div>
 
                     <div className={cx('navigation')}>
-                        <Link
-                            ref={loginLinkRef}
-                            className={cx('link')}
-                            to='/login'
-                        >
+                        <Link className={cx('link')} to='/login'>
                             Already have account? Log in
                         </Link>
                     </div>

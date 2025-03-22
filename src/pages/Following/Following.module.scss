@@ -1,0 +1,39 @@
+.wrapper {
+    padding: 0 64px 0 240px;
+    position: relative;
+}
+
+.videos-block {
+    height: 100%;
+}
+
+.videos-list {
+    transition: transform 0.25s;
+}
+
+// Controls
+.controls {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+.control {
+    display: flex;
+    min-width: 48px;
+    height: 48px;
+    background-color: var(--secondary);
+    padding: 0;
+    border-radius: 50%;
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+
+    & + & {
+        margin: 14px 0 0;
+    }
+}

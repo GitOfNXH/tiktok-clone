@@ -22,6 +22,7 @@ export {
     ChevronUpIcon,
     CloseRegularIcon,
     SpeakerIcon,
+    MuteSpeakerIcon,
     MusicIcon,
     ReportIcon,
     EmbedIcon,
@@ -32,4 +33,5 @@ export {
     EmoteIcon,
     HeartRegularIcon,
     CheckIcon,
+    PencilIcon,
 } from './Icons';

@@ -1,17 +1,20 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import * as httpRequest from '~/services/authService';
 import style from './Auth.module.scss';
 import { LockIcon, UserIcon } from '~/Components/Icons';
 import Button from '~/Components/Button';
+import { ToastContext } from '~/constants';
 
 const cx = classNames.bind(style);
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const toastMessage = useContext(ToastContext);
 
     const navigate = useNavigate();
 
@@ -22,9 +25,18 @@ function Login() {
                 email,
                 password,
             });
-            localStorage.setItem('token', response.meta.token);
-            localStorage.setItem('userData', JSON.stringify(response.data));
-            navigate('/');
+
+            if (response) {
+                localStorage.setItem('token', response.meta.token);
+                localStorage.setItem('userData', JSON.stringify(response.data));
+                navigate('/');
+                toastMessage('success', 'Đăng nhập thành công!');
+            } else {
+                toastMessage(
+                    'error',
+                    'Thông tin về tài khoản hoặc mật khẩu không chính xác!'
+                );
+            }
         };
         fetchApi();
     };

@@ -65,6 +65,7 @@ function Search() {
                 render={attrs => (
                     <div
                         className={cx('search-result')}
+                        onClick={handleHideSearchResult}
                         tabIndex='-1'
                         {...attrs}
                     >

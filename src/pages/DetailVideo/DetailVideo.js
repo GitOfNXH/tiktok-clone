@@ -45,6 +45,7 @@ function DetailVideo() {
     const linkRef = useRef(null);
     const videoRef = useRef();
     const lastScrollTime = useRef(0);
+    const isFollowingRef = useRef();
 
     const navigate = useNavigate();
 
@@ -56,6 +57,7 @@ function DetailVideo() {
                 const video = await httpRequest.getVideo(`videos/${param.id}`);
                 setVideo(video);
                 videoRef.current.load();
+                isFollowingRef.current = video.user.is_followed;
             }
         };
 
@@ -132,13 +134,14 @@ function DetailVideo() {
     };
 
     const handleClose = () => {
-        navigate('/');
+        isFollowingRef ? navigate('/following') : navigate('/');
     };
 
     const handlePrevVideo = () => {
         if (currentIndex > 0) {
             const nextVideoId = videosList[currentIndex - 1].id;
             navigate(`/videos/${nextVideoId}`);
+            setShowPauseIcon(false);
         }
     };
 
@@ -146,6 +149,7 @@ function DetailVideo() {
         if (currentIndex < videosList.length - 1) {
             const nextVideoId = videosList[currentIndex + 1].id;
             navigate(`/videos/${nextVideoId}`);
+            setShowPauseIcon(false);
         }
     };
 

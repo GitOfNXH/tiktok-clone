@@ -10,6 +10,8 @@ import * as httpRequest from '~/services/userService';
 import { profileTabs, profileControls } from '~/constants';
 import { getCurrentUser } from '~/constants';
 import VideoBlock from './VideoBlock';
+import ToastMessage from '~/Components/ToastMessage';
+import ProfileModal from './ProfileModal';
 
 const cx = classNames.bind(style);
 const currentUser = getCurrentUser();
@@ -18,6 +20,8 @@ function Profile() {
     const [tabActive, setTabActive] = useState(1);
     const [controlActive, setControlActive] = useState(1);
     const [userProfile, setUserProfile] = useState();
+    const [showProfileModal, setShowProfileModal] = useState(false);
+    const [showToast, setShowToast] = useState(false);
 
     const { nickname } = useParams();
 
@@ -32,6 +36,14 @@ function Profile() {
         fetchApi();
     }, [nickname]);
 
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            setShowToast(false);
+        }, 4000);
+
+        return () => clearTimeout(timerId);
+    }, [showToast]);
+
     const handleActiveTab = tab => {
         if (tabActive !== tab.id) {
             setTabActive(tab.id);
@@ -44,13 +56,30 @@ function Profile() {
         }
     };
 
+    const handleShowEditProfile = () => {
+        setShowProfileModal(true);
+        document.documentElement.style.overflow = 'hidden';
+        const sidebar = document.querySelector('[class^="Sidebar_wrapper"]');
+        sidebar.style.overflow = 'hidden';
+        sidebar.style.zIndex = '-1';
+    };
+
+    const handleHideEditProfile = () => {
+        setShowProfileModal(false);
+        document.documentElement.style.overflow = 'auto';
+        const sidebar = document.querySelector('[class^="Sidebar_wrapper"]');
+        sidebar.style.overflow = 'auto';
+        sidebar.style.zIndex = '3';
+        setShowToast(true);
+    };
+
     return (
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
                 <div className={cx('avatar-wrap')}>
                     <Image
-                        src={userProfile && userProfile.avatar}
-                        alt={userProfile && userProfile.nickname}
+                        src={userProfile?.avatar}
+                        alt={userProfile?.nickname}
                         width='100%'
                         hight='100%'
                         rounded
@@ -59,19 +88,21 @@ function Profile() {
                 <div className={cx('info')}>
                     <div className={cx('user-text')}>
                         <h3 className={cx('user-name')}>
-                            {userProfile ? userProfile.nickname : ''}
+                            {userProfile?.nickname}
                         </h3>
                         <p className={cx('name')}>
-                            {userProfile
-                                ? `${userProfile.first_name} ${userProfile.last_name}`
-                                : ''}
+                            {`${userProfile?.first_name} ${userProfile?.last_name}`}
                         </p>
                     </div>
                     <div className={cx('header-cta')}>
                         {userProfile &&
                             (userProfile.id === currentUser.id ? (
                                 <>
-                                    <Button className={cx('btn')} primary>
+                                    <Button
+                                        className={cx('btn')}
+                                        primary
+                                        onClick={handleShowEditProfile}
+                                    >
                                         Edit profile
                                     </Button>
                                     <Button className={cx('btn')} secondary>
@@ -99,7 +130,7 @@ function Profile() {
                         <Button className={cx('icon-btn')} secondary>
                             <RightArrowIcon />
                         </Button>
-                        {userProfile && userProfile.id !== currentUser.id && (
+                        {userProfile?.id !== currentUser.id && (
                             <Button className={cx('icon-btn')} secondary>
                                 <ThreeDotsIcon />
                             </Button>
@@ -169,6 +200,20 @@ function Profile() {
 
                 <VideoBlock userProfile={userProfile} />
             </div>
+
+            {showProfileModal && (
+                <ProfileModal
+                    data={userProfile}
+                    hideModal={handleHideEditProfile}
+                />
+            )}
+
+            {showToast && (
+                <ToastMessage
+                    success
+                    message='Thay đổi thông tin cá nhân thành công!'
+                />
+            )}
         </div>
     );
 }
