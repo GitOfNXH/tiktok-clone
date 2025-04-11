@@ -27,6 +27,8 @@ function Login() {
             });
 
             if (response) {
+                console.log(response.meta.token);
+
                 localStorage.setItem('token', response.meta.token);
                 localStorage.setItem('userData', JSON.stringify(response.data));
                 navigate('/');

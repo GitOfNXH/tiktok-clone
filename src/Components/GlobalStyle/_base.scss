@@ -74,6 +74,11 @@ button,
     background-color: transparent;
 }
 
+input:-webkit-autofill {
+    background-color: white !important;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
 a {
     color: var(--text-color);
     text-decoration: none;

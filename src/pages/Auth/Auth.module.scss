@@ -65,14 +65,23 @@
 
 .input {
     margin-left: 16px;
-    background: 0 0;
     color: var(--text-color);
+    background-color: transparent;
     display: block;
     font-size: 1.7rem;
     font-family: Poppins-Medium;
     height: 40px;
     line-height: 1.2;
     flex: 1;
+}
+
+.error-message {
+    display: none;
+    margin-top: 4px;
+    font-size: 1.3rem;
+    padding-left: 7px;
+    line-height: 1.3;
+    color: red;
 }
 
 .navigation {
