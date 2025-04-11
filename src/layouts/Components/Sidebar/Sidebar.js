@@ -18,7 +18,6 @@ function Sidebar() {
     const [followings, setFollowings] = useState([]);
 
     const currentUser = getCurrentUser();
-    console.log('Sidebar');
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -78,7 +77,7 @@ function Sidebar() {
                     data={suggested}
                 />
 
-                {currentUser.id && (
+                {currentUser.followings_count && (
                     <SuggestedAccounts
                         label='Following accounts'
                         following

@@ -11,7 +11,7 @@ import style from './Header.module.scss';
 import images from '~/assets/images';
 import Button from '~/Components/Button';
 import Menu from '~/Components/Popper/Menu';
-import { ActivityIcon, MessagesIcon, UploadIcon } from '~/Components/Icons';
+import { MessagesIcon, UploadIcon } from '~/Components/Icons';
 import Image from '~/Components/Image';
 import Search from '../Search';
 import { getCurrentUser } from '~/constants';
@@ -65,18 +65,6 @@ function Header() {
                             >
                                 <button className={cx('action-btn')}>
                                     <MessagesIcon />
-                                </button>
-                            </Tippy>
-
-                            <Tippy
-                                delay={[0, 200]}
-                                content='Activity'
-                                placement='bottom'
-                            >
-                                <button
-                                    className={cx('action-btn', 'activity')}
-                                >
-                                    <ActivityIcon />
                                 </button>
                             </Tippy>
                         </>

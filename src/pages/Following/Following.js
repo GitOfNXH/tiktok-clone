@@ -77,7 +77,7 @@ function Following() {
         lastScrollTime.current = now;
     };
 
-    return (
+    return currentUser.followings_count ? (
         <main className={cx('wrapper')}>
             <div className={cx('videos-block')}>
                 <div
@@ -106,6 +106,10 @@ function Following() {
                 </Button>
             </div>
         </main>
+    ) : (
+        <h1 className={cx('no-following')}>
+            Bạn chưa theo dõi nhà sáng tạo nội dung nào
+        </h1>
     );
 }
 
