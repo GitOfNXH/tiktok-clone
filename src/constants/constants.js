@@ -77,7 +77,7 @@ export const headerMenuUser = [
     {
         icon: <FontAwesomeIcon icon={faUser} />,
         title: 'View profile',
-        to: `/@${currentUser.nickname}`,
+        to: currentUser && `/@${currentUser.nickname}`,
         type: '',
     },
     {

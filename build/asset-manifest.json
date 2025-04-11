@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.2d436d39.css",
-    "main.js": "/static/js/main.bb8dd0ef.js",
+    "main.js": "/static/js/main.b8c4eeed.js",
     "static/js/453.8be6ee1a.chunk.js": "/static/js/453.8be6ee1a.chunk.js",
     "static/media/login-background.jpg": "/static/media/login-background.e6f3dbd7ec59209f90a7.jpg",
     "static/media/TikTokDisplayFont-Bold.woff2": "/static/media/TikTokDisplayFont-Bold.b191c0620e8c9617ea10.woff2",
@@ -14,11 +14,11 @@
     "static/media/logo.svg": "/static/media/logo.5b7eb62d8965bea2433c199a2ddfdbc4.svg",
     "index.html": "/index.html",
     "main.2d436d39.css.map": "/static/css/main.2d436d39.css.map",
-    "main.bb8dd0ef.js.map": "/static/js/main.bb8dd0ef.js.map",
+    "main.b8c4eeed.js.map": "/static/js/main.b8c4eeed.js.map",
     "453.8be6ee1a.chunk.js.map": "/static/js/453.8be6ee1a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2d436d39.css",
-    "static/js/main.bb8dd0ef.js"
+    "static/js/main.b8c4eeed.js"
   ]
 }
